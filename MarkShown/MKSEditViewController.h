@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MKSDetailViewController : UIViewController
+@interface MKSEditViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) id markShowItem;
+@property (weak, nonatomic) IBOutlet UITextView *markShowContent;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end

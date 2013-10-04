@@ -17,7 +17,7 @@
 		7D01D71317EA7D3C0066074E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D01D71117EA7D3C0066074E /* Main.storyboard */; };
 		7D01D71617EA7D3C0066074E /* MarkShown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D71417EA7D3C0066074E /* MarkShown.xcdatamodeld */; };
 		7D01D71917EA7D3C0066074E /* MKSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D71817EA7D3C0066074E /* MKSMasterViewController.m */; };
-		7D01D71C17EA7D3C0066074E /* MKSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D71B17EA7D3C0066074E /* MKSDetailViewController.m */; };
+		7D01D71C17EA7D3C0066074E /* MKSEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D71B17EA7D3C0066074E /* MKSEditViewController.m */; };
 		7D01D71E17EA7D3C0066074E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D01D71D17EA7D3C0066074E /* Images.xcassets */; };
 		7D01D72517EA7D3C0066074E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D01D72417EA7D3C0066074E /* XCTest.framework */; };
 		7D01D72617EA7D3C0066074E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D01D6FD17EA7D3C0066074E /* Foundation.framework */; };
@@ -25,6 +25,13 @@
 		7D01D72817EA7D3C0066074E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D01D70317EA7D3C0066074E /* CoreData.framework */; };
 		7D01D73017EA7D3C0066074E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D01D72E17EA7D3C0066074E /* InfoPlist.strings */; };
 		7D01D73217EA7D3C0066074E /* MarkShownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D73117EA7D3C0066074E /* MarkShownTests.m */; };
+		7D01D73D17EA96580066074E /* MKSNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D73C17EA96580066074E /* MKSNameViewController.m */; };
+		7D1221F517F7291B002B328C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1221F417F7291B002B328C /* CoreText.framework */; };
+		7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1221F717F72E84002B328C /* MKSSlideView.m */; };
+		7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */; };
+		7D365C3217FA5429007C4A0D /* CASMarkdownParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */; };
+		7DA4E4F817FF0CFE00A52D6B /* MKSSlideStyles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DA4E4F717FF0CFE00A52D6B /* MKSSlideStyles.plist */; };
+		7DFF8F6117EFA1740038D57D /* MKSPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF8F6017EFA1740038D57D /* MKSPlayViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,14 +60,26 @@
 		7D01D71517EA7D3C0066074E /* MarkShown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MarkShown.xcdatamodel; sourceTree = "<group>"; };
 		7D01D71717EA7D3C0066074E /* MKSMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSMasterViewController.h; sourceTree = "<group>"; };
 		7D01D71817EA7D3C0066074E /* MKSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSMasterViewController.m; sourceTree = "<group>"; };
-		7D01D71A17EA7D3C0066074E /* MKSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSDetailViewController.h; sourceTree = "<group>"; };
-		7D01D71B17EA7D3C0066074E /* MKSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSDetailViewController.m; sourceTree = "<group>"; };
+		7D01D71A17EA7D3C0066074E /* MKSEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSEditViewController.h; sourceTree = "<group>"; };
+		7D01D71B17EA7D3C0066074E /* MKSEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKSEditViewController.m; sourceTree = "<group>"; };
 		7D01D71D17EA7D3C0066074E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7D01D72317EA7D3C0066074E /* MarkShownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarkShownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D01D72417EA7D3C0066074E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		7D01D72D17EA7D3C0066074E /* MarkShownTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MarkShownTests-Info.plist"; sourceTree = "<group>"; };
 		7D01D72F17EA7D3C0066074E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7D01D73117EA7D3C0066074E /* MarkShownTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkShownTests.m; sourceTree = "<group>"; };
+		7D01D73B17EA96580066074E /* MKSNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSNameViewController.h; sourceTree = "<group>"; };
+		7D01D73C17EA96580066074E /* MKSNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSNameViewController.m; sourceTree = "<group>"; };
+		7D1221F417F7291B002B328C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		7D1221F617F72E84002B328C /* MKSSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSSlideView.h; sourceTree = "<group>"; };
+		7D1221F717F72E84002B328C /* MKSSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSSlideView.m; sourceTree = "<group>"; };
+		7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExternalScreen.h; sourceTree = "<group>"; };
+		7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExternalScreen.m; sourceTree = "<group>"; };
+		7D365C3017FA5429007C4A0D /* CASMarkdownParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASMarkdownParser.h; sourceTree = "<group>"; };
+		7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASMarkdownParser.m; sourceTree = "<group>"; };
+		7DA4E4F717FF0CFE00A52D6B /* MKSSlideStyles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKSSlideStyles.plist; sourceTree = "<group>"; };
+		7DFF8F5F17EFA1740038D57D /* MKSPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSPlayViewController.h; sourceTree = "<group>"; };
+		7DFF8F6017EFA1740038D57D /* MKSPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSPlayViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D1221F517F7291B002B328C /* CoreText.framework in Frameworks */,
 				7D01D70017EA7D3C0066074E /* CoreGraphics.framework in Frameworks */,
 				7D01D70417EA7D3C0066074E /* CoreData.framework in Frameworks */,
 				7D01D70217EA7D3C0066074E /* UIKit.framework in Frameworks */,
@@ -111,6 +131,7 @@
 		7D01D6FC17EA7D3C0066074E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D1221F417F7291B002B328C /* CoreText.framework */,
 				7D01D6FD17EA7D3C0066074E /* Foundation.framework */,
 				7D01D6FF17EA7D3C0066074E /* CoreGraphics.framework */,
 				7D01D70117EA7D3C0066074E /* UIKit.framework */,
@@ -128,8 +149,18 @@
 				7D01D71117EA7D3C0066074E /* Main.storyboard */,
 				7D01D71717EA7D3C0066074E /* MKSMasterViewController.h */,
 				7D01D71817EA7D3C0066074E /* MKSMasterViewController.m */,
-				7D01D71A17EA7D3C0066074E /* MKSDetailViewController.h */,
-				7D01D71B17EA7D3C0066074E /* MKSDetailViewController.m */,
+				7D01D73B17EA96580066074E /* MKSNameViewController.h */,
+				7D01D73C17EA96580066074E /* MKSNameViewController.m */,
+				7D01D71A17EA7D3C0066074E /* MKSEditViewController.h */,
+				7D01D71B17EA7D3C0066074E /* MKSEditViewController.m */,
+				7DFF8F5F17EFA1740038D57D /* MKSPlayViewController.h */,
+				7DFF8F6017EFA1740038D57D /* MKSPlayViewController.m */,
+				7D1221F617F72E84002B328C /* MKSSlideView.h */,
+				7D1221F717F72E84002B328C /* MKSSlideView.m */,
+				7D365C3017FA5429007C4A0D /* CASMarkdownParser.h */,
+				7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */,
+				7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */,
+				7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */,
 				7D01D71D17EA7D3C0066074E /* Images.xcassets */,
 				7D01D71417EA7D3C0066074E /* MarkShown.xcdatamodeld */,
 				7D01D70617EA7D3C0066074E /* Supporting Files */,
@@ -140,6 +171,7 @@
 		7D01D70617EA7D3C0066074E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7DA4E4F717FF0CFE00A52D6B /* MKSSlideStyles.plist */,
 				7D01D70717EA7D3C0066074E /* MarkShown-Info.plist */,
 				7D01D70817EA7D3C0066074E /* InfoPlist.strings */,
 				7D01D70B17EA7D3C0066074E /* main.m */,
@@ -245,6 +277,7 @@
 			files = (
 				7D01D71E17EA7D3C0066074E /* Images.xcassets in Resources */,
 				7D01D70A17EA7D3C0066074E /* InfoPlist.strings in Resources */,
+				7DA4E4F817FF0CFE00A52D6B /* MKSSlideStyles.plist in Resources */,
 				7D01D71317EA7D3C0066074E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,11 +297,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */,
 				7D01D71617EA7D3C0066074E /* MarkShown.xcdatamodeld in Sources */,
+				7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */,
 				7D01D71017EA7D3C0066074E /* MKSAppDelegate.m in Sources */,
+				7D01D73D17EA96580066074E /* MKSNameViewController.m in Sources */,
+				7DFF8F6117EFA1740038D57D /* MKSPlayViewController.m in Sources */,
+				7D365C3217FA5429007C4A0D /* CASMarkdownParser.m in Sources */,
 				7D01D71917EA7D3C0066074E /* MKSMasterViewController.m in Sources */,
 				7D01D70C17EA7D3C0066074E /* main.m in Sources */,
-				7D01D71C17EA7D3C0066074E /* MKSDetailViewController.m in Sources */,
+				7D01D71C17EA7D3C0066074E /* MKSEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +515,7 @@
 				7D01D73717EA7D3C0066074E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7D01D73817EA7D3C0066074E /* Build configuration list for PBXNativeTarget "MarkShownTests" */ = {
 			isa = XCConfigurationList;
@@ -485,6 +524,7 @@
 				7D01D73A17EA7D3C0066074E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

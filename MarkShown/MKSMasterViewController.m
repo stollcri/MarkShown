@@ -7,8 +7,9 @@
 //
 
 #import "MKSMasterViewController.h"
+#import "MKSNameViewController.h"
+#import "MKSEditViewController.h"
 
-#import "MKSDetailViewController.h"
 
 @interface MKSMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -46,6 +47,8 @@
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    [newManagedObject setValue:@"New Presentation" forKey:@"presentationName"];
+    [newManagedObject setValue:@"# Slide Number 1" forKey:@"presentationContent"];
     
     // Save the context.
     NSError *error = nil;
@@ -107,10 +110,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+    if ([[segue identifier] isEqualToString:@"showName"]){
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        [[segue destinationViewController] setMarkShowItem:object];
+    }else if ([[segue identifier] isEqualToString:@"showEdit"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+        [[segue destinationViewController] setMarkShowItem:object];
     }
 }
 
@@ -216,7 +223,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.textLabel.text = [[object valueForKey:@"presentationName"] description];
+    cell.detailTextLabel.text = [[object valueForKey:@"timeStamp"] description];
 }
 
 @end

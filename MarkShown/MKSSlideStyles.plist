@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Plain</key>
+	<dict>
+		<key>Notes</key>
+		<dict>
+			<key>defaultFont</key>
+			<string>Helvetica</string>
+			<key>defaultSize</key>
+			<integer>18</integer>
+			<key>h1Font</key>
+			<string>Helvetica</string>
+			<key>h1Size</key>
+			<integer>28</integer>
+			<key>h2Font</key>
+			<string>Helvetica</string>
+			<key>h2Size</key>
+			<integer>24</integer>
+			<key>h3Font</key>
+			<string>Helvetica</string>
+			<key>h3Size</key>
+			<integer>22</integer>
+			<key>h4Font</key>
+			<string>Helvetica</string>
+			<key>h4Size</key>
+			<integer>20</integer>
+		</dict>
+		<key>Slides</key>
+		<dict>
+			<key>defaultFont</key>
+			<string>Helvetica</string>
+			<key>defaultSize</key>
+			<integer>36</integer>
+			<key>h1Font</key>
+			<string>Helvetica</string>
+			<key>h1Size</key>
+			<integer>48</integer>
+			<key>h2Font</key>
+			<string>Helvetica</string>
+			<key>h2Size</key>
+			<integer>46</integer>
+			<key>h3Font</key>
+			<string>Helvetica</string>
+			<key>h3Size</key>
+			<integer>44</integer>
+			<key>h4Font</key>
+			<string>Helvetica</string>
+			<key>h4Size</key>
+			<integer>42</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>
