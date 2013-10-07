@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) NSArray *markShowSlides;
 @property (strong, nonatomic) NSArray *markShowPresenterNotes;
+@property (strong, nonatomic) NSDictionary *markShowSlideStyle;
+@property (strong, nonatomic) NSDictionary *markShowNoteStyle;
 @property (strong, nonatomic) NSMutableArray *pageViews;
 
 @property (strong, nonatomic) MKSSlideView *airPlayView;
@@ -27,6 +29,8 @@
 
 - (void)prepareSlideData;
 - (void)preparePages;
+- (void)prepareExternalExternalScreen;
+- (void)getStyleInformation:(NSString *)styleName;
 - (void)setPageSize;
 - (void)loadPage:(NSInteger)page;
 - (void)purgePage:(NSInteger)page;
@@ -46,10 +50,8 @@
     
     [self prepareSlideData];
     [self preparePages];
-    
-    self.externalScreen = [[CASExternalScreen alloc] init];
-    [self.externalScreen setUpScreenConnectionNotificationHandlers];
-    [self.externalScreen checkForExistingScreenAndInitializeIfPresent];
+    [self prepareExternalExternalScreen];
+    [self getStyleInformation:self.markShowSlidesStyle];
     
     self.scrollView.delegate = self;
 }
@@ -65,8 +67,8 @@
     [self loadVisiblePages:NO];
 }
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
     [self unloadPageForAirPlay];
+    [super viewWillDisappear:animated];
 }
 
 - (void)dealloc {
@@ -112,6 +114,20 @@
     }
 }
 
+- (void)prepareExternalExternalScreen {
+    self.externalScreen = [[CASExternalScreen alloc] init];
+    [self.externalScreen setUpScreenConnectionNotificationHandlers];
+    [self.externalScreen checkForExistingScreenAndInitializeIfPresent];
+}
+
+- (void)getStyleInformation:(NSString *)styleName {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
+    NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSDictionary *styleRoot = stylesRoot[styleName];
+    self.markShowSlideStyle = styleRoot[@"Slides"];
+    self.markShowNoteStyle = styleRoot[@"Notes"];
+}
+
 - (void)setPageSize {
     CGSize contentSize = self.scrollView.frame.size;
     [self.scrollView setContentSize:CGSizeMake(contentSize.width * self.markShowSlides.count, contentSize.height)];
@@ -132,7 +148,7 @@
         
         MKSSlideView *newPageView = [[MKSSlideView alloc] initWithFrame:frame];
         
-        NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:NO];
+        NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle];
         [newPageView setSlideContents:markShownSlide];
         [newPageView setBackgroundColor:[UIColor whiteColor]];
 
@@ -196,7 +212,7 @@
     frame.size.height = frame.size.height - (SLIDE_MARGIN_SCREEN1 * 2);
     self.airPlayView = [[MKSSlideView alloc] initWithFrame:frame];
 
-    NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:YES];
+    NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:self.markShowSlideStyle];
     [self.airPlayView setBackgroundColor:[UIColor whiteColor]];
     [self.airPlayView setSlideContents:markShownSlide];
     
@@ -206,20 +222,9 @@
 - (void)unloadPageForAirPlay {
     if (self.externalScreen.secondWindow) {
         NSLog(@"unload-airplay-window");
-        /*
-        [self.airPlayView setBackgroundColor:[UIColor purpleColor]];
-        [self.airPlayView setSlideContents:nil];
-        [self.externalWindow addSubview:self.airPlayView];
-        [[self.externalWindow.subviews objectAtIndex:0] setSlideContents:nil];
-        [self.externalWindow makeKeyAndVisible];
-        */
         
-        //[self.externalWindow setHidden:YES];
-        
-        //[self.externalScreen]
-        //[self.externalWindow setScreen:nil];
-        //self.externalWindow = nil;
-        
+        self.externalScreen.secondWindow.hidden = YES;
+        self.externalScreen.secondWindow = nil;
     }
 }
 

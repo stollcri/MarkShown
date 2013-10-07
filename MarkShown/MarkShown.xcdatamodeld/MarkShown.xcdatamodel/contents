@@ -3,6 +3,7 @@
     <entity name="Event">
         <attribute name="presentationContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="presentationName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="presentationStyle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date">
             <userInfo/>
         </attribute>

@@ -48,6 +48,7 @@
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
     [newManagedObject setValue:@"New Presentation" forKey:@"presentationName"];
+    [newManagedObject setValue:@"Plain" forKey:@"presentationStyle"];
     [newManagedObject setValue:@"# Slide Number 1" forKey:@"presentationContent"];
     
     // Save the context.
@@ -224,7 +225,7 @@
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[object valueForKey:@"presentationName"] description];
-    cell.detailTextLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.detailTextLabel.text = [[object valueForKey:@"presentationStyle"] description];
 }
 
 @end

@@ -12,6 +12,7 @@
 @interface MKSPlayViewController : UIViewController <UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSString *markShowSlidesText;
+@property (strong, nonatomic) NSString *markShowSlidesStyle;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
