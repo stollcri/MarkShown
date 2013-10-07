@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 Christopher Stoll. All rights reserved.
 //
 
+//
+// TODO: post parser implementatoin clean up
+//
+
 #import "CASMarkdownParser.h"
 
 @implementation CASMarkdownParser
@@ -151,6 +155,9 @@ NSRange subStringRange;
     }
     
     attributedString = [[NSMutableAttributedString alloc] initWithString:textWithoutTokens];
+    
+    entireString = NSMakeRange(0, [attributedString length]);
+    
     NSString *defaultFontFace = styleSheet[@"defaultFont"];
     NSNumber *defaultFontSize = styleSheet[@"defaultSize"];
     UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
@@ -162,16 +169,51 @@ NSRange subStringRange;
         if (currentRange.length != -1) {
             // handle headers
             if ([headerFormaters rangeOfString:[formatTypeStack objectAtIndex:i]].location != NSNotFound) {
-                [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:currentRange];
-            
+                if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#"]) {
+                    NSString *defaultFontFace = styleSheet[@"h1Font"];
+                    NSNumber *defaultFontSize = styleSheet[@"h1Size"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"##"]) {
+                    NSString *defaultFontFace = styleSheet[@"h2Font"];
+                    NSNumber *defaultFontSize = styleSheet[@"h2Size"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"###"]) {
+                    NSString *defaultFontFace = styleSheet[@"h3Font"];
+                    NSNumber *defaultFontSize = styleSheet[@"h3Size"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"####"]) {
+                    NSString *defaultFontFace = styleSheet[@"h4Font"];
+                    NSNumber *defaultFontSize = styleSheet[@"h4Size"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#####"]) {
+                    NSString *defaultFontFace = styleSheet[@"h5Font"];
+                    NSNumber *defaultFontSize = styleSheet[@"h5Size"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                }
+                
+                
             // handle character formating
             }else{
                 if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"//"]) {
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:currentRange];
+                    NSString *defaultFontFace = styleSheet[@"italicFont"];
+                    NSNumber *defaultFontSize = styleSheet[@"italicSize"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"__"]) {
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:currentRange];
+                    NSString *defaultFontFace = styleSheet[@"underlineFont"];
+                    NSNumber *defaultFontSize = styleSheet[@"underlineSize"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"**"]) {
-                    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor purpleColor] range:currentRange];
+                    NSString *defaultFontFace = styleSheet[@"boldFont"];
+                    NSNumber *defaultFontSize = styleSheet[@"boldSize"];
+                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
                 }
             }
         }

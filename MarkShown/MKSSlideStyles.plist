@@ -26,6 +26,18 @@
 			<string>Helvetica</string>
 			<key>h4Size</key>
 			<integer>20</integer>
+			<key>boldFont</key>
+			<string>Helvetica-Bold</string>
+			<key>boldSize</key>
+			<integer>18</integer>
+			<key>italicFont</key>
+			<string>Helvetica-Oblique</string>
+			<key>italicSize</key>
+			<integer>18</integer>
+			<key>underlineFont</key>
+			<string>Helvetica-BoldOblique</string>
+			<key>underlineSize</key>
+			<integer>18</integer>
 		</dict>
 		<key>Slides</key>
 		<dict>
@@ -49,6 +61,18 @@
 			<string>Helvetica</string>
 			<key>h4Size</key>
 			<integer>42</integer>
+			<key>boldFont</key>
+			<string>Helvetica-Bold</string>
+			<key>boldSize</key>
+			<string>36</string>
+			<key>italicFont</key>
+			<string>Helvetica-Oblique</string>
+			<key>italicSize</key>
+			<string>36</string>
+			<key>underlineFont</key>
+			<string>Helvetica-BoldOblique</string>
+			<key>underlineSize</key>
+			<string>36</string>
 		</dict>
 	</dict>
 </dict>
