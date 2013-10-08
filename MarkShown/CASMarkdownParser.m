@@ -58,7 +58,7 @@ NSRange subStringRange;
             // we have a token open
             if ([currentToken length] > 0) {
                 // a single occurance of these characters is not signifigant
-                if (([characterFormaters rangeOfString:currentToken].location != NSNotFound) && (![prevCharacter isEqualToString:@"\n"])) {
+                if (([characterFormaters rangeOfString:currentToken].location != NSNotFound) && (![prevCharacter isEqualToString:@"\n"] && ![prevCharacter isEqualToString:@"\t"])) {
                     [textWithoutTokens appendString:currentToken];
                     [textWithoutTokens appendString:currentCharacter];
                     // reduce skip count since these are not signifigant
