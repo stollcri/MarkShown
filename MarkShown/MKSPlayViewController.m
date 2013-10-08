@@ -124,8 +124,8 @@
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
     NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSDictionary *styleRoot = stylesRoot[styleName];
-    self.markShowSlideStyle = styleRoot[@"Slides"];
-    self.markShowNoteStyle = styleRoot[@"Notes"];
+    self.markShowSlideStyle = styleRoot[@"slides"];
+    self.markShowNoteStyle = styleRoot[@"notes"];
 }
 
 - (void)setPageSize {

@@ -157,11 +157,11 @@ NSRange subStringRange;
     attributedString = [[NSMutableAttributedString alloc] initWithString:textWithoutTokens];
     
     entireString = NSMakeRange(0, [attributedString length]);
-    
-    NSString *defaultFontFace = styleSheet[@"defaultFont"];
-    NSNumber *defaultFontSize = styleSheet[@"defaultSize"];
-    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:entireString];
+    NSDictionary *currentFontDefinition = styleSheet[@"default"];
+    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+    [attributedString addAttribute:NSFontAttributeName value:currentFont range:entireString];
     
     for (NSInteger i = 0; i < [formatRangeStack count]; i++) {
         currentRange = [[formatRangeStack objectAtIndex:i] rangeValue];
@@ -170,50 +170,58 @@ NSRange subStringRange;
             // handle headers
             if ([headerFormaters rangeOfString:[formatTypeStack objectAtIndex:i]].location != NSNotFound) {
                 if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#"]) {
-                    NSString *defaultFontFace = styleSheet[@"h1Font"];
-                    NSNumber *defaultFontSize = styleSheet[@"h1Size"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"h1"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"##"]) {
-                    NSString *defaultFontFace = styleSheet[@"h2Font"];
-                    NSNumber *defaultFontSize = styleSheet[@"h2Size"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"h2"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"###"]) {
-                    NSString *defaultFontFace = styleSheet[@"h3Font"];
-                    NSNumber *defaultFontSize = styleSheet[@"h3Size"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"h3"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"####"]) {
-                    NSString *defaultFontFace = styleSheet[@"h4Font"];
-                    NSNumber *defaultFontSize = styleSheet[@"h4Size"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"h4"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#####"]) {
-                    NSString *defaultFontFace = styleSheet[@"h5Font"];
-                    NSNumber *defaultFontSize = styleSheet[@"h5Size"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"h5"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }
                 
                 
             // handle character formating
             }else{
                 if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"//"]) {
-                    NSString *defaultFontFace = styleSheet[@"italicFont"];
-                    NSNumber *defaultFontSize = styleSheet[@"italicSize"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"italic"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"__"]) {
-                    NSString *defaultFontFace = styleSheet[@"underlineFont"];
-                    NSNumber *defaultFontSize = styleSheet[@"underlineSize"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"underline"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"**"]) {
-                    NSString *defaultFontFace = styleSheet[@"boldFont"];
-                    NSNumber *defaultFontSize = styleSheet[@"boldSize"];
-                    UIFont *defaultFont = [UIFont fontWithName:defaultFontFace size:[defaultFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:defaultFont range:currentRange];
+                    NSDictionary *currentFontDefinition = styleSheet[@"bold"];
+                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
+                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 }
             }
         }
