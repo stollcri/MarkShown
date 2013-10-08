@@ -58,7 +58,7 @@ NSRange subStringRange;
             // we have a token open
             if ([currentToken length] > 0) {
                 // a single occurance of these characters is not signifigant
-                if (([characterFormaters rangeOfString:currentToken].location != NSNotFound) && (![prevCharacter isEqualToString:@"\n"] && ![prevCharacter isEqualToString:@"\t"])) {
+                if (([characterFormaters rangeOfString:currentToken].location != NSNotFound) && ![prevCharacter isEqualToString:@"\n"]) {
                     [textWithoutTokens appendString:currentToken];
                     [textWithoutTokens appendString:currentCharacter];
                     // reduce skip count since these are not signifigant
@@ -91,6 +91,10 @@ NSRange subStringRange;
                             skipCount += 1;
                         }
                         
+                        if ([bulletListFormaters rangeOfString:currentToken].location != NSNotFound) {
+                            skipCount -= 2;
+                        }
+                        
                     // we have a character formating mark
                     }else{
                         // this is the end format mark
@@ -109,14 +113,18 @@ NSRange subStringRange;
                             
                         // this is the begin format mark
                         }else{
-                            // push the formating mark onto the stack
-                            NSString *tokenToSave = [[NSString alloc] initWithString:currentToken];
-                            [formatTypeStack addObject:tokenToSave];
-                            
-                            // push the range onto the stack
-                            // length equals -1 until we get the closing mark
-                            currentRange = NSMakeRange(i-skipCount, -1);
-                            [formatRangeStack addObject:[NSValue valueWithRange:currentRange]];
+                            // a single occurance of these characters is not signifigant
+                            // we're checking again because one may have slipped through due to bullet list checking
+                            if ([characterFormaters rangeOfString:currentToken].location == NSNotFound) {
+                                // push the formating mark onto the stack
+                                NSString *tokenToSave = [[NSString alloc] initWithString:currentToken];
+                                [formatTypeStack addObject:tokenToSave];
+                                
+                                // push the range onto the stack
+                                // length equals -1 until we get the closing mark
+                                currentRange = NSMakeRange(i-skipCount, -1);
+                                [formatRangeStack addObject:[NSValue valueWithRange:currentRange]];
+                            }
                         }
                         
                         // save the current, uninteresting character
@@ -142,7 +150,7 @@ NSRange subStringRange;
                                 
                                 // the length is -1, so it's not closed
                                 if (currentRange.length == -1) {
-                                    currentRange.length = i - (currentRange.location + skipCount) + [currentToken length];
+                                    currentRange.length = i - (currentRange.location + skipCount);// + [currentToken length];
                                     
                                     [formatRangeStack replaceObjectAtIndex:([formatRangeStack count] - 1) withObject:[NSValue valueWithRange:currentRange]];
                                     //
@@ -178,6 +186,8 @@ NSRange subStringRange;
         currentRange = [[formatRangeStack objectAtIndex:i] rangeValue];
         
         if (currentRange.length != -1) {
+            NSLog(@"|%@|", [textWithoutTokens substringWithRange:currentRange]);
+            
             // handle headers
             if ([headerFormaters rangeOfString:[formatTypeStack objectAtIndex:i]].location != NSNotFound) {
                 if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#"]) {
@@ -246,7 +256,7 @@ NSRange subStringRange;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else{
-                    NSLog(@"FIXME : %@", [formatTypeStack objectAtIndex:i]);
+                    //NSLog(@"FIXME : %@", [formatTypeStack objectAtIndex:i]);
                     
                     NSDictionary *currentFontDefinition = styleSheet[@"h5"];
                     NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
@@ -257,9 +267,9 @@ NSRange subStringRange;
                     
                     if ([currentFontAlignDefinition isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        //paragraph.firstLineHeadIndent = 10.0;
+                        paragraph.firstLineHeadIndent = 5.0;
+                        paragraph.headIndent = 28.0;
                         //paragraph.tabStops = [NSArray arrayWithObjects:@10];
-                        //paragraph.headIndent = 15.0;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }
