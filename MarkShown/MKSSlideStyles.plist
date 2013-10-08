@@ -12,6 +12,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>20</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h4</key>
 			<dict>
@@ -19,6 +21,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>22</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h3</key>
 			<dict>
@@ -26,6 +30,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>24</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h2</key>
 			<dict>
@@ -33,6 +39,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>26</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h1</key>
 			<dict>
@@ -40,13 +48,17 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>28</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>underline</key>
 			<dict>
 				<key>font</key>
-				<string>Helvetica-BoldOblique</string>
+				<string>Helvetica</string>
 				<key>size</key>
 				<integer>18</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 			<key>italic</key>
 			<dict>
@@ -54,6 +66,8 @@
 				<string>Helvetica-Oblique</string>
 				<key>size</key>
 				<integer>18</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 			<key>bold</key>
 			<dict>
@@ -61,6 +75,8 @@
 				<string>Helvetica-Bold</string>
 				<key>size</key>
 				<integer>18</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 			<key>default</key>
 			<dict>
@@ -68,6 +84,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>18</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 		</dict>
 		<key>slides</key>
@@ -78,6 +96,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>40</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h4</key>
 			<dict>
@@ -85,6 +105,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>42</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h3</key>
 			<dict>
@@ -92,6 +114,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>44</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h2</key>
 			<dict>
@@ -99,6 +123,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>46</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>h1</key>
 			<dict>
@@ -106,13 +132,17 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>48</integer>
+				<key>align</key>
+				<integer>1</integer>
 			</dict>
 			<key>underline</key>
 			<dict>
 				<key>font</key>
-				<string>Helvetica-BoldOblique</string>
+				<string>Helvetica</string>
 				<key>size</key>
 				<integer>36</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 			<key>italic</key>
 			<dict>
@@ -120,6 +150,8 @@
 				<string>Helvetica-Oblique</string>
 				<key>size</key>
 				<integer>36</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 			<key>bold</key>
 			<dict>
@@ -127,6 +159,8 @@
 				<string>Helvetica-Bold</string>
 				<key>size</key>
 				<integer>36</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 			<key>default</key>
 			<dict>
@@ -134,6 +168,8 @@
 				<string>Helvetica</string>
 				<key>size</key>
 				<integer>36</integer>
+				<key>align</key>
+				<integer>0</integer>
 			</dict>
 		</dict>
 	</dict>
