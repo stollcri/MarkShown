@@ -176,99 +176,99 @@ NSRange subStringRange;
     attributedString = [[NSMutableAttributedString alloc] initWithString:textWithoutTokens];
     
     entireString = NSMakeRange(0, [attributedString length]);
-    NSDictionary *currentFontDefinition = styleSheet[@"default"];
-    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+    NSDictionary *currentTypeStyle = styleSheet[@"default"];
+    NSString *currentFontFace = currentTypeStyle[@"font"];
+    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
     [attributedString addAttribute:NSFontAttributeName value:currentFont range:entireString];
     
     for (NSInteger i = 0; i < [formatRangeStack count]; i++) {
         currentRange = [[formatRangeStack objectAtIndex:i] rangeValue];
         
         if (currentRange.length != -1) {
-            NSLog(@"|%@|", [textWithoutTokens substringWithRange:currentRange]);
+            //NSLog(@"|%@|", [textWithoutTokens substringWithRange:currentRange]);
             
             // handle headers
             if ([headerFormaters rangeOfString:[formatTypeStack objectAtIndex:i]].location != NSNotFound) {
                 if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"h1"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"h1"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"##"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"h2"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"h2"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"###"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"h3"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"h3"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"####"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"h4"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"h4"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"#####"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"h5"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"h5"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else{
-                    //NSLog(@"FIXME : %@", [formatTypeStack objectAtIndex:i]);
-                    
-                    NSDictionary *currentFontDefinition = styleSheet[@"h5"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"bullet"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    NSNumber *currentParagraphMargin = currentTypeStyle[@"margin"];
+                    NSNumber *currentParagraphIndent = currentTypeStyle[@"indent"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.firstLineHeadIndent = 5.0;
-                        paragraph.headIndent = 28.0;
+                        paragraph.firstLineHeadIndent = [currentParagraphMargin floatValue];
+                        paragraph.headIndent = [currentParagraphIndent floatValue];
                         //paragraph.tabStops = [NSArray arrayWithObjects:@10];
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
@@ -277,40 +277,40 @@ NSRange subStringRange;
             // handle character formating
             }else{
                 if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"**"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"bold"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"bold"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"//"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"italic"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"italic"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                     }
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"__"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"underline"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"underline"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
@@ -318,14 +318,14 @@ NSRange subStringRange;
                     
                     [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:currentRange];
                 }else if ([[formatTypeStack objectAtIndex:i] isEqualToString:@"--"]) {
-                    NSDictionary *currentFontDefinition = styleSheet[@"underline"];
-                    NSString *currentFontFaceDefinition = currentFontDefinition[@"font"];
-                    NSNumber *currentFontSizeDefinition = currentFontDefinition[@"size"];
-                    NSNumber *currentFontAlignDefinition = currentFontDefinition[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFaceDefinition size:[currentFontSizeDefinition floatValue]];
+                    NSDictionary *currentTypeStyle = styleSheet[@"underline"];
+                    NSString *currentFontFace = currentTypeStyle[@"font"];
+                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                     [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                     
-                    if ([currentFontAlignDefinition isEqualToNumber:@1]) {
+                    if ([currentParagraphAlign isEqualToNumber:@1]) {
                         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                         paragraph.alignment = NSTextAlignmentCenter;
                         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];

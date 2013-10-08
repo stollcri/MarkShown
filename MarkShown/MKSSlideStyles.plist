@@ -51,6 +51,19 @@
 				<key>align</key>
 				<integer>1</integer>
 			</dict>
+			<key>bullet</key>
+			<dict>
+				<key>font</key>
+				<string>Helvetica</string>
+				<key>size</key>
+				<integer>18</integer>
+				<key>align</key>
+				<integer>0</integer>
+				<key>margin</key>
+				<integer>5</integer>
+				<key>indent</key>
+				<integer>28</integer>
+			</dict>
 			<key>underline</key>
 			<dict>
 				<key>font</key>
@@ -134,6 +147,19 @@
 				<integer>48</integer>
 				<key>align</key>
 				<integer>1</integer>
+			</dict>
+			<key>bullet</key>
+			<dict>
+				<key>font</key>
+				<string>Helvetica</string>
+				<key>size</key>
+				<integer>36</integer>
+				<key>align</key>
+				<integer>0</integer>
+				<key>margin</key>
+				<integer>5</integer>
+				<key>indent</key>
+				<integer>28</integer>
 			</dict>
 			<key>underline</key>
 			<dict>
