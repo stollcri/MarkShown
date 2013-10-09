@@ -50,8 +50,8 @@
 
 - (void)setUpKeyboardNotificationHandlers {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-    [center addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)tearDownScreenConnectionNotificationHandlers {
@@ -60,7 +60,7 @@
     [center removeObserver:self name:UIScreenDidDisconnectNotification object:nil];
 }
 
-- (void)keyboardWasShown:(NSNotification*)notification {
+- (void)keyboardDidShow:(NSNotification*)notification {
     NSDictionary *userInfo = [notification userInfo];
     
     // Get the origin of the keyboard when it's displayed.
@@ -87,7 +87,7 @@
     [UIView commitAnimations];
 }
 
-- (void)keyboardWillBeHidden:(NSNotification*)notification {
+- (void)keyboardWillHide:(NSNotification*)notification {
     NSDictionary *userInfo = [notification userInfo];
     
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];

@@ -221,7 +221,7 @@
 
 - (void)unloadPageForAirPlay {
     if (self.externalScreen.secondWindow) {
-        NSLog(@"unload-airplay-window");
+        //NSLog(@"unload-airplay-window");
         
         self.externalScreen.secondWindow.hidden = YES;
         self.externalScreen.secondWindow = nil;
