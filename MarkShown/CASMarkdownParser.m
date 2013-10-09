@@ -43,7 +43,7 @@ NSRange subStringRange;
         currentCharacter = [workingText substringWithRange:NSMakeRange(i, 1)];
         
         // check if the current character is interesting
-        if ([formatDelimiters rangeOfString:currentCharacter].location != NSNotFound) {
+        if (([formatDelimiters rangeOfString:currentCharacter].location != NSNotFound) && (![lastCharacter isEqualToString:@"\\"])) {
             // WHAT IS GOING ON HERE?
             // TODO: clean this mess up
             // hashes are only interesting at the begining of a line
@@ -100,16 +100,13 @@ NSRange subStringRange;
                     // we have a character formating mark
                     }else{
                         // this is the end format mark
-                        NSLog(@"%i, %@, %@", [formatTypeStack count], [formatTypeStack lastObject], currentToken);
                         if ([[formatTypeStack lastObject] isEqualToString:currentToken]) {
                             currentRange = [[formatRangeStack lastObject] rangeValue];
                             
                             currentRange.length = i - (currentRange.location + skipCount);
                             
-                            NSLog(@">> %i", [formatTypes count]);
                             [formatTypes addObject:[formatTypeStack lastObject]];
                             [formatRanges addObject:[NSValue valueWithRange:currentRange]];
-                            NSLog(@">> %i, %i, %i", [formatTypes count], currentRange.location, currentRange.length);
                             
                             [formatTypeStack removeLastObject];
                             [formatRangeStack removeLastObject];
@@ -139,7 +136,19 @@ NSRange subStringRange;
             }else{
                 // nothing to do and this is not a newline character
                 if (![currentCharacter isEqualToString:@"\n"]) {
-                    [textWithoutTokens appendString:currentCharacter];
+                    // the last character was not a potential escape
+                    if (![lastCharacter isEqualToString:@"\\"]) {
+                        [textWithoutTokens appendString:currentCharacter];
+                    
+                    // the last cahracter was a potential escape
+                    }else{
+                        // the current token is escapable
+                        if ([characterFormaters rangeOfString:currentCharacter].location != NSNotFound) {
+                            // remove the escape character
+                            [textWithoutTokens deleteCharactersInRange:NSMakeRange([textWithoutTokens length]-1, 1)];
+                        }
+                        [textWithoutTokens appendString:currentCharacter];
+                    }
                 
                 // we have a newline character
                 }else{
@@ -185,131 +194,128 @@ NSRange subStringRange;
     
     for (NSInteger i = 0; i < [formatRanges count]; i++) {
         currentRange = [[formatRanges objectAtIndex:i] rangeValue];
+        //NSLog(@"|%@|", [textWithoutTokens substringWithRange:currentRange]);
         
-        //if (currentRange.length != -1) {
-            NSLog(@"|%@|", [textWithoutTokens substringWithRange:currentRange]);
-            
-            // handle headers
-            if ([headerFormaters rangeOfString:[formatTypes objectAtIndex:i]].location != NSNotFound) {
-                if ([[formatTypes objectAtIndex:i] isEqualToString:@"#"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"h1"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"##"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"h2"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"###"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"h3"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"####"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"h4"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"#####"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"h5"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else{
-                    NSDictionary *currentTypeStyle = styleSheet[@"bullet"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    //NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    NSNumber *currentParagraphMargin = currentTypeStyle[@"margin"];
-                    NSNumber *currentParagraphIndent = currentTypeStyle[@"indent"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    // TODO: bullet points are not showing properly on the second screen?
+        // handle headers
+        if ([headerFormaters rangeOfString:[formatTypes objectAtIndex:i]].location != NSNotFound) {
+            if ([[formatTypes objectAtIndex:i] isEqualToString:@"#"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"h1"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
                     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                    paragraph.firstLineHeadIndent = [currentParagraphMargin floatValue];
-                    paragraph.headIndent = [currentParagraphIndent floatValue];
-                    //paragraph.tabStops = [NSArray arrayWithObjects:@10];
+                    paragraph.alignment = NSTextAlignmentCenter;
                     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                 }
-            
-            // handle character formating
-            }else{
-                if ([[formatTypes objectAtIndex:i] isEqualToString:@"**"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"bold"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"//"]) {
-                    NSDictionary *currentTypeStyle = styleSheet[@"italic"];
-                    NSString *currentFontFace = currentTypeStyle[@"font"];
-                    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-                    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-                    [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                    
-                    if ([currentParagraphAlign isEqualToNumber:@1]) {
-                        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                        paragraph.alignment = NSTextAlignmentCenter;
-                        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                    }
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"__"]) {
-                    [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:currentRange];
-                }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"--"]) {
-                    // TODO: the strikethrough is not working
-                    [attributedString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:currentRange];
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"##"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"h2"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
+                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                    paragraph.alignment = NSTextAlignmentCenter;
+                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
                 }
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"###"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"h3"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
+                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                    paragraph.alignment = NSTextAlignmentCenter;
+                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
+                }
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"####"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"h4"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
+                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                    paragraph.alignment = NSTextAlignmentCenter;
+                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
+                }
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"#####"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"h5"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
+                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                    paragraph.alignment = NSTextAlignmentCenter;
+                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
+                }
+            }else{
+                NSDictionary *currentTypeStyle = styleSheet[@"bullet"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                //NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                NSNumber *currentParagraphMargin = currentTypeStyle[@"margin"];
+                NSNumber *currentParagraphIndent = currentTypeStyle[@"indent"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                // TODO: bullet points are not showing properly on the second screen?
+                NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                paragraph.firstLineHeadIndent = [currentParagraphMargin floatValue];
+                paragraph.headIndent = [currentParagraphIndent floatValue];
+                //paragraph.tabStops = [NSArray arrayWithObjects:@10];
+                [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
             }
-        //}
+        
+        // handle character formating
+        }else{
+            if ([[formatTypes objectAtIndex:i] isEqualToString:@"**"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"bold"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
+                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                    paragraph.alignment = NSTextAlignmentCenter;
+                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
+                }
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"//"]) {
+                NSDictionary *currentTypeStyle = styleSheet[@"italic"];
+                NSString *currentFontFace = currentTypeStyle[@"font"];
+                NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+                [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
+                
+                if ([currentParagraphAlign isEqualToNumber:@1]) {
+                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+                    paragraph.alignment = NSTextAlignmentCenter;
+                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
+                }
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"__"]) {
+                [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:currentRange];
+            }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"--"]) {
+                // TODO: the strikethrough is not working
+                [attributedString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:currentRange];
+            }
+        }
     }
     
     return attributedString;
