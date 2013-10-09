@@ -60,7 +60,7 @@
 				<key>align</key>
 				<integer>0</integer>
 				<key>margin</key>
-				<integer>5</integer>
+				<integer>14</integer>
 				<key>indent</key>
 				<integer>28</integer>
 			</dict>
@@ -157,7 +157,7 @@
 				<key>align</key>
 				<integer>0</integer>
 				<key>margin</key>
-				<integer>5</integer>
+				<integer>14</integer>
 				<key>indent</key>
 				<integer>28</integer>
 			</dict>
