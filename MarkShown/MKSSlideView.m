@@ -40,6 +40,20 @@
     CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.slideContents length]), path, NULL);
     CTFrameDraw(frame, context);
     
+    if (self.slideFooterCenter) {
+        CGRect pageCount = self.bounds;
+        pageCount.origin.x = (NSInteger)floor(pageCount.size.width / 2) - 20;
+        pageCount.origin.y = 0;
+        pageCount.size.height = 20;
+        
+        path = CGPathCreateMutable();
+        CGPathAddRect(path, NULL, pageCount);
+        
+        framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.slideFooterCenter); //3
+        frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.slideFooterCenter length]), path, NULL);
+        CTFrameDraw(frame, context);
+    }
+    
     CFRelease(frame);
     CFRelease(path);
     CFRelease(framesetter);

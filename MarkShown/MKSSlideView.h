@@ -12,5 +12,6 @@
 @interface MKSSlideView : UIView
 
 @property (retain, nonatomic) NSAttributedString *slideContents;
+@property (retain, nonatomic) NSAttributedString *slideFooterCenter;
 
 @end
