@@ -124,7 +124,7 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>40</integer>
+				<integer>34</integer>
 				<key>align</key>
 				<integer>1</integer>
 			</dict>
@@ -133,7 +133,7 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>42</integer>
+				<integer>36</integer>
 				<key>align</key>
 				<integer>1</integer>
 			</dict>
@@ -142,7 +142,7 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>44</integer>
+				<integer>38</integer>
 				<key>align</key>
 				<integer>1</integer>
 			</dict>
@@ -151,7 +151,7 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>46</integer>
+				<integer>40</integer>
 				<key>align</key>
 				<integer>1</integer>
 			</dict>
@@ -160,7 +160,7 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>48</integer>
+				<integer>42</integer>
 				<key>align</key>
 				<integer>1</integer>
 			</dict>
@@ -169,7 +169,7 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>36</integer>
+				<integer>32</integer>
 				<key>margin</key>
 				<integer>20</integer>
 				<key>indent</key>
@@ -180,28 +180,235 @@
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
-				<integer>36</integer>
+				<integer>32</integer>
 			</dict>
 			<key>italic</key>
 			<dict>
 				<key>font</key>
 				<string>Helvetica-Oblique</string>
 				<key>size</key>
-				<integer>36</integer>
+				<integer>32</integer>
 			</dict>
 			<key>bold</key>
 			<dict>
 				<key>font</key>
 				<string>Helvetica-Bold</string>
 				<key>size</key>
-				<integer>36</integer>
+				<integer>32</integer>
 			</dict>
 			<key>default</key>
 			<dict>
 				<key>font</key>
 				<string>Helvetica</string>
 				<key>size</key>
+				<integer>32</integer>
+				<key>color</key>
+				<integer>1118481</integer>
+				<key>align</key>
+				<integer>0</integer>
+			</dict>
+		</dict>
+	</dict>
+	<key>Simple</key>
+	<dict>
+		<key>notes</key>
+		<dict>
+			<key>footer</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>18</integer>
+				<key>color</key>
+				<integer>6710886</integer>
+				<key>align</key>
+				<integer>2</integer>
+			</dict>
+			<key>h5</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>20</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h4</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>22</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h3</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>24</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h2</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>26</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h1</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>28</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>bullet</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>18</integer>
+				<key>margin</key>
+				<integer>14</integer>
+				<key>indent</key>
+				<integer>28</integer>
+			</dict>
+			<key>underline</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>18</integer>
+			</dict>
+			<key>italic</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans-Italic</string>
+				<key>size</key>
+				<integer>18</integer>
+			</dict>
+			<key>bold</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans-Bold</string>
+				<key>size</key>
+				<integer>18</integer>
+			</dict>
+			<key>default</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>18</integer>
+				<key>color</key>
+				<integer>1118481</integer>
+				<key>align</key>
+				<integer>0</integer>
+			</dict>
+		</dict>
+		<key>slides</key>
+		<dict>
+			<key>footer</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>24</integer>
+				<key>color</key>
+				<integer>6710886</integer>
+				<key>align</key>
+				<integer>2</integer>
+			</dict>
+			<key>h5</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>34</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h4</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
 				<integer>36</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h3</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>38</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h2</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>40</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>h1</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>42</integer>
+				<key>align</key>
+				<integer>1</integer>
+			</dict>
+			<key>bullet</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>32</integer>
+				<key>margin</key>
+				<integer>20</integer>
+				<key>indent</key>
+				<integer>56</integer>
+			</dict>
+			<key>underline</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>32</integer>
+			</dict>
+			<key>italic</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans-Italic</string>
+				<key>size</key>
+				<integer>32</integer>
+			</dict>
+			<key>bold</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans-Bold</string>
+				<key>size</key>
+				<integer>32</integer>
+			</dict>
+			<key>default</key>
+			<dict>
+				<key>font</key>
+				<string>GillSans</string>
+				<key>size</key>
+				<integer>32</integer>
 				<key>color</key>
 				<integer>1118481</integer>
 				<key>align</key>

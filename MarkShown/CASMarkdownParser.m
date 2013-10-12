@@ -24,7 +24,7 @@ NSMutableAttributedString *attributedString;
 NSRange entireString;
 NSRange subStringRange;
 
-+ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdown withStyleSheet:(NSDictionary *)styleSheet {
++ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdown withStyleSheet:(NSDictionary *)styleSheet andScale:(NSNumber *)fontScale {
     NSString *workingText = [[NSString alloc] initWithFormat:@"\n%@\n", markdown];
     NSString *formatDelimiters = @"#*/_-";
     NSString *headerFormaters = @"#####*-";
@@ -197,6 +197,8 @@ NSRange subStringRange;
     NSNumber *currentFontSize = currentTypeStyle[@"size"];
     NSNumber *currentFontColor = currentTypeStyle[@"color"];
     NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+    currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+    
     UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
     
     [attributedString addAttribute:NSFontAttributeName value:currentFont range:entireString];
@@ -219,6 +221,8 @@ NSRange subStringRange;
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
                 NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
@@ -232,6 +236,8 @@ NSRange subStringRange;
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
                 NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
@@ -245,6 +251,8 @@ NSRange subStringRange;
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
                 NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
@@ -258,6 +266,8 @@ NSRange subStringRange;
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
                 NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
@@ -271,6 +281,8 @@ NSRange subStringRange;
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
                 NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
@@ -285,6 +297,8 @@ NSRange subStringRange;
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
                 NSNumber *currentParagraphMargin = currentTypeStyle[@"margin"];
                 NSNumber *currentParagraphIndent = currentTypeStyle[@"indent"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
@@ -303,12 +317,16 @@ NSRange subStringRange;
                 NSDictionary *currentTypeStyle = styleSheet[@"bold"];
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
             }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"//"]) {
                 NSDictionary *currentTypeStyle = styleSheet[@"italic"];
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
+                currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
+                
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
             }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"__"]) {

@@ -11,6 +11,6 @@
 
 @interface CASMarkdownParser : NSObject
 
-+ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdown withStyleSheet:(NSDictionary *)styleSheet;
++ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdown withStyleSheet:(NSDictionary *)styleSheet andScale:(NSNumber *)fontScale;
 
 @end

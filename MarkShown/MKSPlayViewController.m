@@ -16,6 +16,8 @@
 #define SLIDE_MARGIN_SCREEN0 20
 #define SLIDE_MARGIN_SCREEN1 40
 
+#define DEFAULT_DIAGONAL 800
+
 //RGB color macro
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -130,6 +132,7 @@
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
     NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSDictionary *styleRoot = stylesRoot[styleName];
+    //NSDictionary *styleRoot = stylesRoot[@"Simple"];
     self.markShowSlideStyle = styleRoot[@"slides"];
     self.markShowNoteStyle = styleRoot[@"notes"];
 }
@@ -154,7 +157,7 @@
         
         MKSSlideView *newPageView = [[MKSSlideView alloc] initWithFrame:frame];
         
-        NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle];
+        NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle andScale:@1];
         [newPageView setSlideContents:markShownSlide];
         [newPageView setBackgroundColor:[UIColor whiteColor]];
 
@@ -212,13 +215,17 @@
 
 - (void)loadPageForAirPlay:(NSInteger)page {
     CGRect frame = self.externalScreen.secondWindow.bounds;
-    frame.origin.x = SLIDE_MARGIN_SCREEN1;
-    frame.origin.y = SLIDE_MARGIN_SCREEN1;
-    frame.size.width = frame.size.width - (SLIDE_MARGIN_SCREEN1 * 2);
-    frame.size.height = frame.size.height - (SLIDE_MARGIN_SCREEN1 * 2);
+    
+    double diagonalLength = sqrt((frame.size.width * frame.size.width) + (frame.size.height * frame.size.height));
+    NSNumber *fontScale = [NSNumber numberWithDouble:(diagonalLength / DEFAULT_DIAGONAL)];
+    
+    frame.origin.x = floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]);
+    frame.origin.y = floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]);
+    frame.size.width = frame.size.width - (floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]) * 2);
+    frame.size.height = frame.size.height - (floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]) * 2);
     self.airPlayView = [[MKSSlideView alloc] initWithFrame:frame];
-
-    NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:self.markShowSlideStyle];
+    
+    NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:self.markShowSlideStyle andScale:fontScale];
     
     //NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i / %i", (int)(page+1), (int)self.markShowSlides.count]];
     NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i", (int)(page+1)]];
@@ -230,6 +237,7 @@
     NSNumber *currentFontSize = currentTypeStyle[@"size"];
     NSNumber *currentFontColor = currentTypeStyle[@"color"];
     NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+    currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
     
     UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
     [pageCount addAttribute:NSFontAttributeName value:currentFont range:pageCountRange];
