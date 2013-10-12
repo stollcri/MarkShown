@@ -12,6 +12,12 @@
 
 #import "CASMarkdownParser.h"
 
+//RGB color macro
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+//RGB color macro with alpha
+#define UIColorFromRGBWithAlpha(rgbValue,a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
+
 @implementation CASMarkdownParser
 
 NSMutableAttributedString *attributedString;
@@ -19,7 +25,7 @@ NSRange entireString;
 NSRange subStringRange;
 
 + (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdown withStyleSheet:(NSDictionary *)styleSheet {
-    NSString *workingText = [[NSString alloc] initWithFormat:@"\n%@ ", markdown];
+    NSString *workingText = [[NSString alloc] initWithFormat:@"\n%@\n", markdown];
     NSString *formatDelimiters = @"#*/_-";
     NSString *headerFormaters = @"#####*-";
     NSString *characterFormaters = @"#*/_-";
@@ -189,8 +195,18 @@ NSRange subStringRange;
     NSDictionary *currentTypeStyle = styleSheet[@"default"];
     NSString *currentFontFace = currentTypeStyle[@"font"];
     NSNumber *currentFontSize = currentTypeStyle[@"size"];
+    NSNumber *currentFontColor = currentTypeStyle[@"color"];
+    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
     UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+    
     [attributedString addAttribute:NSFontAttributeName value:currentFont range:entireString];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB([currentFontColor integerValue]) range:entireString];
+    
+    if ([currentParagraphAlign isEqualToNumber:@1]) {
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.alignment = NSTextAlignmentCenter;
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
+    }
     
     for (NSInteger i = 0; i < [formatRanges count]; i++) {
         currentRange = [[formatRanges objectAtIndex:i] rangeValue];
@@ -267,13 +283,13 @@ NSRange subStringRange;
                 NSDictionary *currentTypeStyle = styleSheet[@"bullet"];
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                //NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
                 NSNumber *currentParagraphMargin = currentTypeStyle[@"margin"];
                 NSNumber *currentParagraphIndent = currentTypeStyle[@"indent"];
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
                 
-                // TODO: bullet points are not showing properly on the second screen?
+                // DONE: bullet points are not showing properly on the second screen?
+                //       the spacing needed changed for the larger font sizes
                 NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
                 paragraph.firstLineHeadIndent = [currentParagraphMargin floatValue];
                 paragraph.headIndent = [currentParagraphIndent floatValue];
@@ -287,28 +303,14 @@ NSRange subStringRange;
                 NSDictionary *currentTypeStyle = styleSheet[@"bold"];
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                
-                if ([currentParagraphAlign isEqualToNumber:@1]) {
-                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                    paragraph.alignment = NSTextAlignmentCenter;
-                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                }
             }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"//"]) {
                 NSDictionary *currentTypeStyle = styleSheet[@"italic"];
                 NSString *currentFontFace = currentTypeStyle[@"font"];
                 NSNumber *currentFontSize = currentTypeStyle[@"size"];
-                NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
                 UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
                 [attributedString addAttribute:NSFontAttributeName value:currentFont range:currentRange];
-                
-                if ([currentParagraphAlign isEqualToNumber:@1]) {
-                    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-                    paragraph.alignment = NSTextAlignmentCenter;
-                    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:currentRange];
-                }
             }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"__"]) {
                 [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:currentRange];
             }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"--"]) {

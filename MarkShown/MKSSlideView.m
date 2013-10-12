@@ -36,20 +36,19 @@
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, self.bounds );
     
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.slideContents); //3
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.slideContents);
     CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.slideContents length]), path, NULL);
     CTFrameDraw(frame, context);
     
     if (self.slideFooterCenter) {
         CGRect pageCount = self.bounds;
-        pageCount.origin.x = (NSInteger)floor(pageCount.size.width / 2) - 20;
         pageCount.origin.y = 0;
-        pageCount.size.height = 20;
+        pageCount.size.height = self.slideFooterCenter.size.height + (self.slideFooterCenter.size.height * .1);
         
         path = CGPathCreateMutable();
         CGPathAddRect(path, NULL, pageCount);
         
-        framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.slideFooterCenter); //3
+        framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.slideFooterCenter);
         frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.slideFooterCenter length]), path, NULL);
         CTFrameDraw(frame, context);
     }

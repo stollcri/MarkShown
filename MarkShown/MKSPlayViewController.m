@@ -16,6 +16,12 @@
 #define SLIDE_MARGIN_SCREEN0 20
 #define SLIDE_MARGIN_SCREEN1 40
 
+//RGB color macro
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+//RGB color macro with alpha
+#define UIColorFromRGBWithAlpha(rgbValue,a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
+
 @interface MKSPlayViewController ()
 
 @property (strong, nonatomic) NSArray *markShowSlides;
@@ -213,8 +219,35 @@
     self.airPlayView = [[MKSSlideView alloc] initWithFrame:frame];
 
     NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:self.markShowSlideStyle];
+    
+    //NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i / %i", (int)(page+1), (int)self.markShowSlides.count]];
+    NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i", (int)(page+1)]];
+    
+    NSRange pageCountRange = NSMakeRange(0, [pageCount length]);
+    NSDictionary *styleSheet = self.markShowSlideStyle;
+    NSDictionary *currentTypeStyle = styleSheet[@"footer"];
+    NSString *currentFontFace = currentTypeStyle[@"font"];
+    NSNumber *currentFontSize = currentTypeStyle[@"size"];
+    NSNumber *currentFontColor = currentTypeStyle[@"color"];
+    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
+    
+    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
+    [pageCount addAttribute:NSFontAttributeName value:currentFont range:pageCountRange];
+    [pageCount addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB([currentFontColor integerValue]) range:pageCountRange];
+    
+    if ([currentParagraphAlign isEqualToNumber:@1]) {
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.alignment = NSTextAlignmentCenter;
+        [pageCount addAttribute:NSParagraphStyleAttributeName value:paragraph range:pageCountRange];
+    }else if([currentParagraphAlign isEqualToNumber:@2]) {
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.alignment = NSTextAlignmentRight;
+        [pageCount addAttribute:NSParagraphStyleAttributeName value:paragraph range:pageCountRange];
+    }
+     
     [self.airPlayView setBackgroundColor:[UIColor whiteColor]];
     [self.airPlayView setSlideContents:markShownSlide];
+    [self.airPlayView setSlideFooterCenter:pageCount];
     
     [self.externalScreen.secondWindow addSubview:self.airPlayView];
 }
