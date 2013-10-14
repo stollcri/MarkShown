@@ -152,6 +152,8 @@ NSRange subStringRange;
                         if ([characterFormaters rangeOfString:currentCharacter].location != NSNotFound) {
                             // remove the escape character
                             [textWithoutTokens deleteCharactersInRange:NSMakeRange([textWithoutTokens length]-1, 1)];
+                            // TODO: check that this is working as intended
+                            skipCount += 1;
                         }
                         [textWithoutTokens appendString:currentCharacter];
                     }
