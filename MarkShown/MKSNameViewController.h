@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MKSNameViewController : UIViewController
+@interface MKSNameViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) id markShowItem;
+@property (weak, nonatomic) NSArray *markShowStyles;
+
 @property (weak, nonatomic) IBOutlet UITextField *markShowName;
-@property (weak, nonatomic) NSDictionary *markShowStyles;
+@property (weak, nonatomic) IBOutlet UIPickerView *markShowStyle;
 
 - (IBAction)endMarkShowName:(id)sender;
 

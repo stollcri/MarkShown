@@ -30,11 +30,20 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.markShowStyle.delegate = self;
+    
     // Update the user interface for the detail item.
     if (self.markShowItem) {
         [self.markShowName setText:[[self.markShowItem valueForKey:@"presentationName"] description]];
         [self.markShowName becomeFirstResponder];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSString *styleName = [[self.markShowItem valueForKey:@"presentationStyle"] description];
+    NSInteger styleIndex = [self.markShowStyles indexOfObject:styleName];
+    [self.markShowStyle selectRow:styleIndex inComponent:0 animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +66,24 @@
 - (IBAction)endMarkShowName:(id)sender {
     // on keyboard done button press go back to main view
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark Picker DataSource/Delegate
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [self.markShowStyles count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [self.markShowStyles objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    [self.markShowItem setValue:[[self.markShowStyles objectAtIndex:row] description] forKey:@"presentationStyle"];
 }
 
 @end

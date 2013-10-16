@@ -12,7 +12,11 @@
 
 
 @interface MKSMasterViewController ()
+
+@property (strong, nonatomic) NSArray *markShowStyles;
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @implementation MKSMasterViewController
@@ -30,6 +34,9 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    // Set up empty styles array
+    self.markShowStyles = [[NSArray alloc] init];
     
     // Create a tutorial if there are not other MarkShows
     if ([self.tableView numberOfRowsInSection:0] <= 0) {
@@ -137,6 +144,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[segue destinationViewController] setMarkShowItem:object];
+        [[segue destinationViewController] setMarkShowStyles:[self getStyleNames]];
     }else if ([[segue identifier] isEqualToString:@"showEdit"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
@@ -248,6 +256,26 @@
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[object valueForKey:@"presentationName"] description];
     cell.detailTextLabel.text = [[object valueForKey:@"presentationStyle"] description];
+}
+
+- (NSArray *)getStyleNames {
+    // TODO: there has to be a better way to do this
+    if ([self.markShowStyles count] <= 0) {
+        NSMutableArray *styles = [[NSMutableArray alloc] init];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
+        NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+        for (NSDictionary *currentStyle in stylesRoot) {
+            [styles addObject:[currentStyle description]];
+        }
+        
+        NSArray *sortedStyles;
+        sortedStyles = [styles sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            return [[a description] compare:[b description]];
+        }];
+        
+        self.markShowStyles = sortedStyles;
+    }
+    return self.markShowStyles;
 }
 
 @end
