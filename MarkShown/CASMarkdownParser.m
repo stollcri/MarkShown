@@ -335,7 +335,9 @@ NSRange subStringRange;
                 [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:currentRange];
             }else if ([[formatTypes objectAtIndex:i] isEqualToString:@"--"]) {
                 // TODO: the strikethrough is not working
-                [attributedString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:currentRange];
+                [attributedString addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlineStyleSingle) range:currentRange];
+                [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:currentRange];
+
             }
         }
     }

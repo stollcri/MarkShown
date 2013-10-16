@@ -29,18 +29,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
     self.markShowStyle.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     // Update the user interface for the detail item.
     if (self.markShowItem) {
         [self.markShowName setText:[[self.markShowItem valueForKey:@"presentationName"] description]];
         [self.markShowName becomeFirstResponder];
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    
     NSString *styleName = [[self.markShowItem valueForKey:@"presentationStyle"] description];
     NSInteger styleIndex = [self.markShowStyles indexOfObject:styleName];
     [self.markShowStyle selectRow:styleIndex inComponent:0 animated:NO];
@@ -65,7 +65,8 @@
 
 - (IBAction)endMarkShowName:(id)sender {
     // on keyboard done button press go back to main view
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    [self.markShowName resignFirstResponder];
 }
 
 #pragma mark Picker DataSource/Delegate
