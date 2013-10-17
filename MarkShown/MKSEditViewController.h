@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MKSEditViewController : UIViewController
+@interface MKSEditViewController : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) id markShowItem;
 @property (weak, nonatomic) IBOutlet UITextView *markShowContent;
+@property (nonatomic, weak) IBOutlet UIView *accessoryView;
+
+- (IBAction)tappedHash:(id)sender;
+- (IBAction)tappedSlash:(id)sender;
+- (IBAction)tappedAsterisk:(id)sender;
+- (IBAction)tappedUnderscore:(id)sender;
 
 @end
