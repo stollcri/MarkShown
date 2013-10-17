@@ -131,10 +131,54 @@
     
     // you can create the accessory view programmatically (in code), or from the storyboard
     if (self.markShowContent.inputAccessoryView == nil) {
-        NSLog(@"tada");
         self.markShowContent.inputAccessoryView = self.accessoryView;
-        self.accessoryView.backgroundColor = [UIColor colorWithRed:0xDC green:0xDF blue:0xE2 alpha:1.0f];
+        
         self.accessoryView.backgroundColor = [UIColor colorWithRed:((float)((0xDCDFE2 & 0xFF0000) >> 16))/255.0 green:((float)((0xDCDFE2 & 0xFF00) >> 8))/255.0 blue:((float)(0xDCDFE2 & 0xFF))/255.0 alpha:1.0];
+        
+        self.hashButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        self.slashButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        self.asteriskButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        self.underscoreButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        
+        CALayer *layerHashButton = [self.hashButton layer];
+        [layerHashButton setCornerRadius:5.0];
+        CGSize sizeHashButton = self.underscoreButton.bounds.size;
+        CGRect rectHashButton = CGRectMake(0.0f, 4.0f, sizeHashButton.width - 0, sizeHashButton.height);
+        UIBezierPath *pathHashButton = [UIBezierPath bezierPathWithRoundedRect:rectHashButton cornerRadius:5.0];
+        [layerHashButton setShadowPath:pathHashButton.CGPath];
+        [layerHashButton setShadowRadius:0.0];
+        [layerHashButton setShadowOpacity:5.0];
+        [layerHashButton setShadowColor:[UIColor lightGrayColor].CGColor];
+        
+        CALayer *layerslashButton = [self.slashButton layer];
+        [layerslashButton setCornerRadius:5.0];
+        CGSize sizeSlashButton = self.underscoreButton.bounds.size;
+        CGRect rectSlashButton = CGRectMake(0.0f, 4.0f, sizeSlashButton.width - 0, sizeSlashButton.height);
+        UIBezierPath *pathSlashButton = [UIBezierPath bezierPathWithRoundedRect:rectSlashButton cornerRadius:5.0];
+        [layerslashButton setShadowPath:pathSlashButton.CGPath];
+        [layerslashButton setShadowRadius:0.0];
+        [layerslashButton setShadowOpacity:5.0];
+        [layerslashButton setShadowColor:[UIColor lightGrayColor].CGColor];
+        
+        CALayer *layerAsteriskButton = [self.asteriskButton layer];
+        [layerAsteriskButton setCornerRadius:5.0];
+        CGSize sizeAsteriskButton = self.underscoreButton.bounds.size;
+        CGRect rectAsteriskButton = CGRectMake(0.0f, 4.0f, sizeAsteriskButton.width - 0, sizeAsteriskButton.height);
+        UIBezierPath *pathAsteriskButton = [UIBezierPath bezierPathWithRoundedRect:rectAsteriskButton cornerRadius:5.0];
+        [layerAsteriskButton setShadowPath:pathAsteriskButton.CGPath];
+        [layerAsteriskButton setShadowRadius:0.0];
+        [layerAsteriskButton setShadowOpacity:5.0];
+        [layerAsteriskButton setShadowColor:[UIColor lightGrayColor].CGColor];
+        
+        CALayer *layerUnderlineButton = [self.underscoreButton layer];
+        [layerUnderlineButton setCornerRadius:5.0];
+        CGSize sizeUnderlineButton = self.underscoreButton.bounds.size;
+        CGRect rectUnderlineButton = CGRectMake(0.0f, 4.0f, sizeUnderlineButton.width - 0, sizeUnderlineButton.height);
+        UIBezierPath *pathUnderlineButton = [UIBezierPath bezierPathWithRoundedRect:rectUnderlineButton cornerRadius:5.0];
+        [layerUnderlineButton setShadowPath:pathUnderlineButton.CGPath];
+        [layerUnderlineButton setShadowRadius:0.0];
+        [layerUnderlineButton setShadowOpacity:5.0];
+        [layerUnderlineButton setShadowColor:[UIColor lightGrayColor].CGColor];
     }
     
    // self.navigationItem.rightBarButtonItem = self.doneButton;

@@ -14,6 +14,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *markShowContent;
 @property (nonatomic, weak) IBOutlet UIView *accessoryView;
 
+@property (weak, nonatomic) IBOutlet UIButton *hashButton;
+@property (weak, nonatomic) IBOutlet UIButton *slashButton;
+@property (weak, nonatomic) IBOutlet UIButton *asteriskButton;
+@property (weak, nonatomic) IBOutlet UIButton *underscoreButton;
+
 - (IBAction)tappedHash:(id)sender;
 - (IBAction)tappedSlash:(id)sender;
 - (IBAction)tappedAsterisk:(id)sender;
