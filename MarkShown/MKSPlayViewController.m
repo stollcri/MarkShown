@@ -157,9 +157,15 @@
         
         MKSSlideView *newPageView = [[MKSSlideView alloc] initWithFrame:frame];
         
+        NSDictionary *styleSheet = self.markShowNoteStyle;
+        NSNumber *currentBackgroundColor = styleSheet[@"backgroundColor"];
+        
         NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle andScale:@1];
         [newPageView setSlideContents:markShownSlide];
         [newPageView setBackgroundColor:[UIColor whiteColor]];
+        
+        [newPageView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
+        [self.scrollView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
 
         [self.scrollView addSubview:newPageView];
         [self.pageViews replaceObjectAtIndex:page withObject:newPageView];
@@ -232,6 +238,7 @@
     
     NSRange pageCountRange = NSMakeRange(0, [pageCount length]);
     NSDictionary *styleSheet = self.markShowSlideStyle;
+    NSNumber *currentBackgroundColor = styleSheet[@"backgroundColor"];
     NSDictionary *currentTypeStyle = styleSheet[@"footer"];
     NSString *currentFontFace = currentTypeStyle[@"font"];
     NSNumber *currentFontSize = currentTypeStyle[@"size"];
@@ -253,9 +260,11 @@
         [pageCount addAttribute:NSParagraphStyleAttributeName value:paragraph range:pageCountRange];
     }
      
-    [self.airPlayView setBackgroundColor:[UIColor whiteColor]];
     [self.airPlayView setSlideContents:markShownSlide];
     [self.airPlayView setSlideFooterCenter:pageCount];
+    
+    [self.airPlayView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
+    [self.externalScreen.secondWindow setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
     
     [self.externalScreen.secondWindow addSubview:self.airPlayView];
 }
