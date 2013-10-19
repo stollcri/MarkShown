@@ -141,10 +141,14 @@
         
         //
         // TODO: for changes to the schema, catch the error here and perform migration
-        // 
+        //
+        // For version one, there should be no cases where this becomes and issue,
+        // but if it does we will just abort, for now
+#ifdef DEBUG
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+#endif
         abort();
-    }    
+    }
     
     return _persistentStoreCoordinator;
 }

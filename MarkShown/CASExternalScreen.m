@@ -24,16 +24,10 @@
 
 
 - (void)screenDidConnect:(NSNotification*)notification {
-    //UIScreen *newScreen = [notification object];
-    //CGRect screenBounds = newScreen.bounds;
-    
     if (!self.secondWindow) {
-        //self.secondWindow = [[UIWindow alloc] initWithFrame:screenBounds];
-        //self.secondWindow.screen = newScreen;
         // Set the initial UI for the window.
         [self checkForExistingScreenAndInitializeIfPresent];
     }
-    NSLog(@"External screen connected");
 }
 
 - (void)ScreenDidDisconnect:(NSNotification*)notification {
@@ -42,7 +36,6 @@
         self.secondWindow.hidden = YES;
         self.secondWindow = nil;
     }
-    NSLog(@"External screen DISconnected");
 }
 
 - (void)checkForExistingScreenAndInitializeIfPresent {

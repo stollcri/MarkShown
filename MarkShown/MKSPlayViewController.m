@@ -18,6 +18,10 @@
 
 #define DEFAULT_DIAGONAL 800
 
+//
+// TODO: abstraction of macros
+//
+
 //RGB color macro
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -66,8 +70,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //[self setPageSize];
-    //[self loadVisiblePages:NO];
+    // don't sleep while we are playing a slideshow
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -77,6 +81,8 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self unloadPageForAirPlay];
     [super viewWillDisappear:animated];
+    // the app can sleap when it is not playing a slideshow
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)dealloc {
@@ -132,7 +138,6 @@
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
     NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSDictionary *styleRoot = stylesRoot[styleName];
-    //NSDictionary *styleRoot = stylesRoot[@"Simple"];
     self.markShowSlideStyle = styleRoot[@"slides"];
     self.markShowNoteStyle = styleRoot[@"notes"];
 }
@@ -233,7 +238,6 @@
     
     NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:self.markShowSlideStyle andScale:fontScale];
     
-    //NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i / %i", (int)(page+1), (int)self.markShowSlides.count]];
     NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i", (int)(page+1)]];
     
     NSRange pageCountRange = NSMakeRange(0, [pageCount length]);
@@ -271,8 +275,6 @@
 
 - (void)unloadPageForAirPlay {
     if (self.externalScreen.secondWindow) {
-        //NSLog(@"unload-airplay-window");
-        
         self.externalScreen.secondWindow.hidden = YES;
         self.externalScreen.secondWindow = nil;
     }

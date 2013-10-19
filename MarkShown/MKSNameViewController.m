@@ -8,6 +8,13 @@
 
 #import "MKSNameViewController.h"
 
+//
+// TODO: abstraction of macros
+//
+
+//RGB color macro
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface MKSNameViewController ()
 - (void)saveMarkShowName;
 @end
@@ -44,6 +51,10 @@
         NSInteger styleIndex = [self.markShowStyles indexOfObject:styleName];
         [self.markShowStyle selectRow:styleIndex inComponent:0 animated:NO];
     }
+    self.nameView.backgroundColor = UIColorFromRGB([@0xEFEFF4 integerValue]);
+    self.nameContainerView.backgroundColor = [UIColor whiteColor];
+    self.markShowName.backgroundColor = [UIColor whiteColor];
+    self.markShowStyle.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,6 +95,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    [self.markShowName resignFirstResponder];
     [self.markShowItem setValue:[[self.markShowStyles objectAtIndex:row] description] forKey:@"presentationStyle"];
 }
 

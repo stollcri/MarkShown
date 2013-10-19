@@ -13,6 +13,8 @@
 @property (strong, nonatomic) id markShowItem;
 @property (weak, nonatomic) NSArray *markShowStyles;
 
+@property (strong, nonatomic) IBOutlet UIView *nameView;
+@property (weak, nonatomic) IBOutlet UIView *nameContainerView;
 @property (weak, nonatomic) IBOutlet UITextField *markShowName;
 @property (weak, nonatomic) IBOutlet UIPickerView *markShowStyle;
 

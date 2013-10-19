@@ -13,11 +13,7 @@
 @property (strong, nonatomic) UIWindow *secondWindow;
 
 - (void)setUpScreenConnectionNotificationHandlers;
-/*
-- (void)handleScreenDidConnectNotification:(NSNotification*)aNotification;
-- (void)handleScreenDidDisconnectNotification:(NSNotification*)aNotification;
-*/
- - (void)checkForExistingScreenAndInitializeIfPresent;
+- (void)checkForExistingScreenAndInitializeIfPresent;
 - (void)tearDownScreenConnectionNotificationHandlers;
 
 @end

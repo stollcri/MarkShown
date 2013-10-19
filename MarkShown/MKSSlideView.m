@@ -54,8 +54,8 @@
     }
     
     CFRelease(frame);
-    CFRelease(path);
     CFRelease(framesetter);
+    CFRelease(path);
 }
 
 @end

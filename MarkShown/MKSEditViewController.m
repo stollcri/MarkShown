@@ -9,6 +9,13 @@
 #import "MKSEditViewController.h"
 #import "MKSPlayViewController.h"
 
+//
+// TODO: abstraction of macros
+//
+
+//RGB color macro
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface MKSEditViewController ()
 
 - (void)saveMarkShowContent;
@@ -63,49 +70,7 @@
     //[center removeObserver:self name:UIScreenDidDisconnectNotification object:nil];
     [center removeObserver:self name:nil object:nil];
 }
-/*
-- (void)keyboardDidShow:(NSNotification*)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    
-    // Get the origin of the keyboard when it's displayed.
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
-    CGRect keyboardRect = [aValue CGRectValue];
-    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
-    
-    CGFloat keyboardTop = keyboardRect.origin.y;
-    CGRect newTextViewFrame = self.view.bounds;
-    newTextViewFrame.size.height = keyboardTop - self.view.bounds.origin.y;
-    
-    // Get the duration of the animation.
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    
-    // Animate the resize of the text view's frame in sync with the keyboard's appearance.
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:animationDuration];
-    
-    self.markShowContent.frame = newTextViewFrame;
-    
-    [UIView commitAnimations];
-}
 
-- (void)keyboardWillHide:(NSNotification*)notification {
-    NSDictionary *userInfo = [notification userInfo];
-    
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:animationDuration];
-    
-    self.markShowContent.frame = self.view.bounds;
-    
-    [UIView commitAnimations];
-}
-*/
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self saveMarkShowContent];
     [self.markShowContent resignFirstResponder];
@@ -128,19 +93,18 @@
 #pragma mark - Text view delegate methods
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)aTextView {
-    
     // you can create the accessory view programmatically (in code), or from the storyboard
     if (self.markShowContent.inputAccessoryView == nil) {
         self.markShowContent.inputAccessoryView = self.accessoryView;
         
         self.accessoryView.backgroundColor = [UIColor colorWithRed:((float)((0xDCDFE2 & 0xFF0000) >> 16))/255.0 green:((float)((0xDCDFE2 & 0xFF00) >> 8))/255.0 blue:((float)(0xDCDFE2 & 0xFF))/255.0 alpha:1.0];
         
-        self.hashButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
-        self.slashButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
-        self.asteriskButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
-        self.underscoreButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
-        self.strikethroughButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
-        self.doubleAsteriskButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        self.hashButton.backgroundColor = UIColorFromRGB([@0xFDFDFD integerValue]);
+        self.slashButton.backgroundColor = UIColorFromRGB([@0xFDFDFD integerValue]);
+        self.asteriskButton.backgroundColor = UIColorFromRGB([@0xFDFDFD integerValue]);
+        self.underscoreButton.backgroundColor = UIColorFromRGB([@0xFDFDFD integerValue]);
+        self.strikethroughButton.backgroundColor = UIColorFromRGB([@0xFDFDFD integerValue]);
+        self.doubleAsteriskButton.backgroundColor = UIColorFromRGB([@0xFDFDFD integerValue]);
         
         //
         // TODO: add abstraction or refactor?
@@ -206,16 +170,10 @@
         [layerDoubleAsteriskButton setShadowColor:[UIColor lightGrayColor].CGColor];
     }
     
-   // self.navigationItem.rightBarButtonItem = self.doneButton;
-    
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)aTextView {
-    /*
-    [aTextView resignFirstResponder];
-    self.navigationItem.rightBarButtonItem = self.editButton;
-    */
     return YES;
 }
 

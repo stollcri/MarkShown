@@ -252,27 +252,41 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-cC-EZL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rlY-BE-nfM">
-                                <rect key="frame" x="20" y="20" width="280" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sru-eQ-uCD">
+                                <rect key="frame" x="0.0" y="20" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
-                                <connections>
-                                    <action selector="endMarkShowName:" destination="qsX-MF-grl" eventType="editingDidEndOnExit" id="ZQX-1I-sWJ"/>
-                                </connections>
-                            </textField>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rlY-BE-nfM">
+                                        <rect key="frame" x="20" y="0.0" width="280" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="endMarkShowName:" destination="qsX-MF-grl" eventType="editingDidEndOnExit" id="ue6-8Z-uai"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8Ns-CL-rQI"/>
+                                    <constraint firstAttribute="trailing" secondItem="rlY-BE-nfM" secondAttribute="trailing" constant="20" id="TUd-yj-L4j"/>
+                                    <constraint firstItem="rlY-BE-nfM" firstAttribute="leading" secondItem="sru-eQ-uCD" secondAttribute="leading" constant="20" id="mWC-Iq-H9M"/>
+                                    <constraint firstAttribute="bottom" secondItem="rlY-BE-nfM" secondAttribute="bottom" id="n3d-fr-YwB"/>
+                                    <constraint firstItem="rlY-BE-nfM" firstAttribute="top" secondItem="sru-eQ-uCD" secondAttribute="top" id="qaP-7Q-aAX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rlY-BE-nfM" secondAttribute="trailing" constant="20" id="5jA-sk-CXC"/>
-                            <constraint firstAttribute="trailing" secondItem="IJ9-cC-EZL" secondAttribute="trailing" id="Jf5-dk-YmX"/>
-                            <constraint firstItem="rlY-BE-nfM" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" constant="20" id="KfP-CN-D1u"/>
-                            <constraint firstItem="IJ9-cC-EZL" firstAttribute="top" secondItem="Un9-SP-mQL" secondAttribute="bottom" id="MAO-v6-e7W"/>
-                            <constraint firstItem="rlY-BE-nfM" firstAttribute="top" secondItem="duk-SG-D1F" secondAttribute="top" constant="20" id="OgX-hc-btU"/>
-                            <constraint firstItem="IJ9-cC-EZL" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" id="Xlu-CJ-au0"/>
+                            <constraint firstItem="IJ9-cC-EZL" firstAttribute="top" secondItem="sru-eQ-uCD" secondAttribute="bottom" constant="20" id="405-fq-irD"/>
+                            <constraint firstItem="IJ9-cC-EZL" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" id="IUF-Rz-4sW"/>
+                            <constraint firstAttribute="trailing" secondItem="IJ9-cC-EZL" secondAttribute="trailing" id="LiV-ao-VBF"/>
+                            <constraint firstAttribute="trailing" secondItem="sru-eQ-uCD" secondAttribute="trailing" id="OAD-b7-Dgv"/>
+                            <constraint firstItem="sru-eQ-uCD" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" id="Whb-AD-19c"/>
+                            <constraint firstItem="sru-eQ-uCD" firstAttribute="top" secondItem="Un9-SP-mQL" secondAttribute="bottom" constant="20" id="ujM-C9-ec2"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -280,6 +294,8 @@
                     <connections>
                         <outlet property="markShowName" destination="rlY-BE-nfM" id="q7L-nR-wsa"/>
                         <outlet property="markShowStyle" destination="IJ9-cC-EZL" id="aIg-A2-1Yi"/>
+                        <outlet property="nameContainerView" destination="sru-eQ-uCD" id="GS7-Bt-Akc"/>
+                        <outlet property="nameView" destination="duk-SG-D1F" id="sfy-D5-2gI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8oL-fJ-7xR" userLabel="First Responder" sceneMemberID="firstResponder"/>
