@@ -23,7 +23,7 @@
     controller.managedObjectContext = self.managedObjectContext;
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -60,9 +60,14 @@
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
              // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            
+            // I don't know what to do if the framework cannot save the context,
+            // but I'm not going to abort, maybe just defer the saveContext?
+#ifdef DEBUG
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
+#endif
         } 
     }
 }
@@ -133,6 +138,10 @@
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
          
          */
+        
+        //
+        // TODO: for changes to the schema, catch the error here and perform migration
+        // 
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    

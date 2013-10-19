@@ -39,11 +39,11 @@
     if (self.markShowItem) {
         [self.markShowName setText:[[self.markShowItem valueForKey:@"presentationName"] description]];
         [self.markShowName becomeFirstResponder];
+        
+        NSString *styleName = [[self.markShowItem valueForKey:@"presentationStyle"] description];
+        NSInteger styleIndex = [self.markShowStyles indexOfObject:styleName];
+        [self.markShowStyle selectRow:styleIndex inComponent:0 animated:NO];
     }
-    
-    NSString *styleName = [[self.markShowItem valueForKey:@"presentationStyle"] description];
-    NSInteger styleIndex = [self.markShowStyles indexOfObject:styleName];
-    [self.markShowStyle selectRow:styleIndex inComponent:0 animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {

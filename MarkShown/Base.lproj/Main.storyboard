@@ -114,9 +114,11 @@
                     <connections>
                         <outlet property="accessoryView" destination="KpK-Nl-w8z" id="CJZ-7m-TZ6"/>
                         <outlet property="asteriskButton" destination="9iU-ZP-VOj" id="8ah-xj-pwt"/>
+                        <outlet property="doubleAsteriskButton" destination="QnE-g0-dsq" id="E4z-4P-XLl"/>
                         <outlet property="hashButton" destination="gGA-Fu-6rG" id="xnK-Zm-eNm"/>
                         <outlet property="markShowContent" destination="GbV-1w-jM9" id="Gus-pk-kM9"/>
                         <outlet property="slashButton" destination="u62-fU-Gnw" id="e6A-TA-AeZ"/>
+                        <outlet property="strikethroughButton" destination="e7V-9V-e6L" id="2tm-9A-clc"/>
                         <outlet property="underscoreButton" destination="J5O-8O-k3m" id="a8j-We-T1l"/>
                     </connections>
                 </viewController>
@@ -148,8 +150,20 @@
                                 <action selector="tappedAsterisk:" destination="Ah7-4n-0Wa" eventType="touchUpInside" id="Yx7-BJ-Aby"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u62-fU-Gnw">
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnE-g0-dsq">
                             <rect key="frame" x="67" y="12" width="25" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <state key="normal" title="⁑">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="tappedDoubleAsterisk:" destination="Ah7-4n-0Wa" eventType="touchUpInside" id="Uen-jB-yV4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u62-fU-Gnw">
+                            <rect key="frame" x="99" y="12" width="25" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                             <state key="normal" title="/">
@@ -161,7 +175,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5O-8O-k3m">
-                            <rect key="frame" x="99" y="12" width="25" height="40"/>
+                            <rect key="frame" x="131" y="12" width="25" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                             <state key="normal" title="_">
@@ -170,6 +184,18 @@
                             </state>
                             <connections>
                                 <action selector="tappedUnderscore:" destination="Ah7-4n-0Wa" eventType="touchUpInside" id="89W-Ak-G6s"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7V-9V-e6L">
+                            <rect key="frame" x="162" y="12" width="25" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <state key="normal" title="-">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="tappedStrikethrough:" destination="Ah7-4n-0Wa" eventType="touchUpInside" id="Cv6-aY-vrC"/>
                             </connections>
                         </button>
                     </subviews>
@@ -225,6 +251,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-cC-EZL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rlY-BE-nfM">
                                 <rect key="frame" x="20" y="20" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -234,19 +264,15 @@
                                     <action selector="endMarkShowName:" destination="qsX-MF-grl" eventType="editingDidEndOnExit" id="ZQX-1I-sWJ"/>
                                 </connections>
                             </textField>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-cC-EZL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rlY-BE-nfM" firstAttribute="top" secondItem="Un9-SP-mQL" secondAttribute="bottom" constant="20" id="FZi-dx-azw"/>
+                            <constraint firstAttribute="trailing" secondItem="rlY-BE-nfM" secondAttribute="trailing" constant="20" id="5jA-sk-CXC"/>
                             <constraint firstAttribute="trailing" secondItem="IJ9-cC-EZL" secondAttribute="trailing" id="Jf5-dk-YmX"/>
+                            <constraint firstItem="rlY-BE-nfM" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" constant="20" id="KfP-CN-D1u"/>
                             <constraint firstItem="IJ9-cC-EZL" firstAttribute="top" secondItem="Un9-SP-mQL" secondAttribute="bottom" id="MAO-v6-e7W"/>
-                            <constraint firstItem="rlY-BE-nfM" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" constant="20" id="S1z-8l-xFw"/>
+                            <constraint firstItem="rlY-BE-nfM" firstAttribute="top" secondItem="duk-SG-D1F" secondAttribute="top" constant="20" id="OgX-hc-btU"/>
                             <constraint firstItem="IJ9-cC-EZL" firstAttribute="leading" secondItem="duk-SG-D1F" secondAttribute="leading" id="Xlu-CJ-au0"/>
-                            <constraint firstAttribute="trailing" secondItem="rlY-BE-nfM" secondAttribute="trailing" constant="20" id="hbv-Ja-UDH"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

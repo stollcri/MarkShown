@@ -139,6 +139,8 @@
         self.slashButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
         self.asteriskButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
         self.underscoreButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        self.strikethroughButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
+        self.doubleAsteriskButton.backgroundColor = [UIColor colorWithRed:((float)((0xFDFDFD & 0xFF0000) >> 16))/255.0 green:((float)((0xFDFDFD & 0xFF00) >> 8))/255.0 blue:((float)(0xFDFDFD & 0xFF))/255.0 alpha:1.0];
         
         //
         // TODO: add abstraction or refactor?
@@ -182,6 +184,26 @@
         [layerUnderlineButton setShadowRadius:0.0];
         [layerUnderlineButton setShadowOpacity:5.0];
         [layerUnderlineButton setShadowColor:[UIColor lightGrayColor].CGColor];
+        
+        CALayer *layerStrikethroughButton = [self.strikethroughButton layer];
+        [layerStrikethroughButton setCornerRadius:5.0];
+        CGSize sizeStrikethroughButton = self.strikethroughButton.bounds.size;
+        CGRect rectStrikethroughButton = CGRectMake(0.0f, 4.0f, sizeStrikethroughButton.width - 0, sizeStrikethroughButton.height);
+        UIBezierPath *pathStrikethroughButton = [UIBezierPath bezierPathWithRoundedRect:rectStrikethroughButton cornerRadius:5.0];
+        [layerStrikethroughButton setShadowPath:pathStrikethroughButton.CGPath];
+        [layerStrikethroughButton setShadowRadius:0.0];
+        [layerStrikethroughButton setShadowOpacity:5.0];
+        [layerStrikethroughButton setShadowColor:[UIColor lightGrayColor].CGColor];
+        
+        CALayer *layerDoubleAsteriskButton = [self.doubleAsteriskButton layer];
+        [layerDoubleAsteriskButton setCornerRadius:5.0];
+        CGSize sizeDoubleAsteriskButton = self.doubleAsteriskButton.bounds.size;
+        CGRect rectDoubleAsteriskButton = CGRectMake(0.0f, 4.0f, sizeDoubleAsteriskButton.width - 0, sizeDoubleAsteriskButton.height);
+        UIBezierPath *pathDoubleAsteriskButton = [UIBezierPath bezierPathWithRoundedRect:rectDoubleAsteriskButton cornerRadius:5.0];
+        [layerDoubleAsteriskButton setShadowPath:pathDoubleAsteriskButton.CGPath];
+        [layerDoubleAsteriskButton setShadowRadius:0.0];
+        [layerDoubleAsteriskButton setShadowOpacity:5.0];
+        [layerDoubleAsteriskButton setShadowColor:[UIColor lightGrayColor].CGColor];
     }
     
    // self.navigationItem.rightBarButtonItem = self.doneButton;
@@ -318,6 +340,40 @@
     
     // Update the system pasteboard with my string
     lPasteBoard.string = @"__";
+    
+    // Paste the pasteboard contents at current cursor location
+    [self.markShowContent paste:self];
+    
+    // Restore original pasteboard contents
+    lPasteBoard.items = lPasteBoardItems;
+}
+
+- (IBAction)tappedStrikethrough:(id)sender {
+    // Get a reference to the system pasteboard
+    UIPasteboard* lPasteBoard = [UIPasteboard generalPasteboard];
+    
+    // Save the current pasteboard contents so we can restore them later
+    NSArray* lPasteBoardItems = [lPasteBoard.items copy];
+    
+    // Update the system pasteboard with my string
+    lPasteBoard.string = @"--";
+    
+    // Paste the pasteboard contents at current cursor location
+    [self.markShowContent paste:self];
+    
+    // Restore original pasteboard contents
+    lPasteBoard.items = lPasteBoardItems;
+}
+
+- (IBAction)tappedDoubleAsterisk:(id)sender {
+    // Get a reference to the system pasteboard
+    UIPasteboard* lPasteBoard = [UIPasteboard generalPasteboard];
+    
+    // Save the current pasteboard contents so we can restore them later
+    NSArray* lPasteBoardItems = [lPasteBoard.items copy];
+    
+    // Update the system pasteboard with my string
+    lPasteBoard.string = @"**";
     
     // Paste the pasteboard contents at current cursor location
     [self.markShowContent paste:self];

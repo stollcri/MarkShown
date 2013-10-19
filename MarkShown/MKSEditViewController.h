@@ -18,10 +18,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *slashButton;
 @property (weak, nonatomic) IBOutlet UIButton *asteriskButton;
 @property (weak, nonatomic) IBOutlet UIButton *underscoreButton;
+@property (weak, nonatomic) IBOutlet UIButton *strikethroughButton;
+@property (weak, nonatomic) IBOutlet UIButton *doubleAsteriskButton;
 
 - (IBAction)tappedHash:(id)sender;
 - (IBAction)tappedSlash:(id)sender;
 - (IBAction)tappedAsterisk:(id)sender;
 - (IBAction)tappedUnderscore:(id)sender;
+- (IBAction)tappedStrikethrough:(id)sender;
+- (IBAction)tappedDoubleAsterisk:(id)sender;
 
 @end
