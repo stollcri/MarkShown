@@ -30,9 +30,9 @@
 		7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1221F717F72E84002B328C /* MKSSlideView.m */; };
 		7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */; };
 		7D365C3217FA5429007C4A0D /* CASMarkdownParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */; };
-		7D8E7B30180639C200B6BC4E /* iPhone_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2D180639C200B6BC4E /* iPhone_320x480.png */; };
-		7D8E7B31180639C200B6BC4E /* iPhone_640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2E180639C200B6BC4E /* iPhone_640x960.png */; };
-		7D8E7B32180639C200B6BC4E /* iPhone_640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2F180639C200B6BC4E /* iPhone_640x1136.png */; };
+		7D8E7B30180639C200B6BC4E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2D180639C200B6BC4E /* Default.png */; };
+		7D8E7B31180639C200B6BC4E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2E180639C200B6BC4E /* Default@2x.png */; };
+		7D8E7B32180639C200B6BC4E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2F180639C200B6BC4E /* Default-568h@2x.png */; };
 		7DA4E4F817FF0CFE00A52D6B /* MKSSlideStyles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DA4E4F717FF0CFE00A52D6B /* MKSSlideStyles.plist */; };
 		7DC0B05A1812FA3B00595BEB /* markShown0120.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC0B0561812FA3B00595BEB /* markShown0120.png */; };
 		7DC0B05B1812FA3B00595BEB /* markShown0058.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DC0B0571812FA3B00595BEB /* markShown0058.png */; };
@@ -84,9 +84,9 @@
 		7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExternalScreen.m; sourceTree = "<group>"; };
 		7D365C3017FA5429007C4A0D /* CASMarkdownParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASMarkdownParser.h; sourceTree = "<group>"; };
 		7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASMarkdownParser.m; sourceTree = "<group>"; };
-		7D8E7B2D180639C200B6BC4E /* iPhone_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_320x480.png; sourceTree = "<group>"; };
-		7D8E7B2E180639C200B6BC4E /* iPhone_640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_640x960.png; sourceTree = "<group>"; };
-		7D8E7B2F180639C200B6BC4E /* iPhone_640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_640x1136.png; sourceTree = "<group>"; };
+		7D8E7B2D180639C200B6BC4E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		7D8E7B2E180639C200B6BC4E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		7D8E7B2F180639C200B6BC4E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7DA4E4F717FF0CFE00A52D6B /* MKSSlideStyles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKSSlideStyles.plist; sourceTree = "<group>"; };
 		7DC0B0561812FA3B00595BEB /* markShown0120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = markShown0120.png; sourceTree = "<group>"; };
 		7DC0B0571812FA3B00595BEB /* markShown0058.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = markShown0058.png; sourceTree = "<group>"; };
@@ -190,9 +190,9 @@
 				7DC0B0581812FA3B00595BEB /* markShown0080.png */,
 				7DC0B0591812FA3B00595BEB /* markShown1024.png */,
 				7DA4E4F717FF0CFE00A52D6B /* MKSSlideStyles.plist */,
-				7D8E7B2D180639C200B6BC4E /* iPhone_320x480.png */,
-				7D8E7B2E180639C200B6BC4E /* iPhone_640x960.png */,
-				7D8E7B2F180639C200B6BC4E /* iPhone_640x1136.png */,
+				7D8E7B2D180639C200B6BC4E /* Default.png */,
+				7D8E7B2E180639C200B6BC4E /* Default@2x.png */,
+				7D8E7B2F180639C200B6BC4E /* Default-568h@2x.png */,
 				7D01D70717EA7D3C0066074E /* MarkShown-Info.plist */,
 				7D01D70817EA7D3C0066074E /* InfoPlist.strings */,
 				7D01D70B17EA7D3C0066074E /* main.m */,
@@ -299,12 +299,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D8E7B31180639C200B6BC4E /* iPhone_640x960.png in Resources */,
+				7D8E7B31180639C200B6BC4E /* Default@2x.png in Resources */,
 				7DC0B05A1812FA3B00595BEB /* markShown0120.png in Resources */,
 				7DC0B05C1812FA3B00595BEB /* markShown0080.png in Resources */,
-				7D8E7B30180639C200B6BC4E /* iPhone_320x480.png in Resources */,
+				7D8E7B30180639C200B6BC4E /* Default.png in Resources */,
 				7D01D71E17EA7D3C0066074E /* Images.xcassets in Resources */,
-				7D8E7B32180639C200B6BC4E /* iPhone_640x1136.png in Resources */,
+				7D8E7B32180639C200B6BC4E /* Default-568h@2x.png in Resources */,
 				7DC0B05D1812FA3B00595BEB /* markShown1024.png in Resources */,
 				7D01D70A17EA7D3C0066074E /* InfoPlist.strings in Resources */,
 				7DA4E4F817FF0CFE00A52D6B /* MKSSlideStyles.plist in Resources */,

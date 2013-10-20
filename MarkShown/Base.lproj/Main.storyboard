@@ -7,10 +7,10 @@
         <!--Navigation Controller-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
-                <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="rS3-R9-Ivy" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
@@ -23,14 +23,14 @@
         <!--Master View Controller - Master-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
-                <tableViewController title="Master" id="pGg-6v-bdr" customClass="MKSMasterViewController" sceneMemberID="viewController">
+                <tableViewController title="Master" extendedLayoutIncludesOpaqueBars="YES" id="pGg-6v-bdr" customClass="MKSMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" editingAccessoryType="detailDisclosureButton" textLabel="2pz-XF-uhl" detailTextLabel="eyA-P9-fHh" style="IBUITableViewCellStyleSubtitle" id="m0d-ak-lc9">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="2Sb-jY-oRh">
                                     <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
@@ -65,7 +65,6 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="MarkShows" id="tQt-TN-PWz"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
@@ -75,17 +74,17 @@
         <!--Edit View Controller - Edit-->
         <scene sceneID="Cn3-H9-jdl">
             <objects>
-                <viewController title="Edit" id="Ah7-4n-0Wa" customClass="MKSEditViewController" sceneMemberID="viewController">
+                <viewController title="Edit" extendedLayoutIncludesOpaqueBars="YES" id="Ah7-4n-0Wa" customClass="MKSEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dVd-nB-x4i"/>
                         <viewControllerLayoutGuide type="bottom" id="qLr-HQ-4WP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MMQ-IT-qOo">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbV-1w-jM9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -103,7 +102,6 @@
                             <constraint firstItem="GbV-1w-jM9" firstAttribute="top" secondItem="MMQ-IT-qOo" secondAttribute="top" id="UpY-pl-GUB"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Edit" id="cra-N8-TIN">
                         <barButtonItem key="rightBarButtonItem" title="Play" id="bZP-wm-wNo">
                             <connections>
@@ -223,10 +221,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MfJ-yJ-saS" firstAttribute="top" secondItem="RYE-Qe-fGc" secondAttribute="top" id="9ee-nd-QKS"/>
-                            <constraint firstAttribute="trailing" secondItem="MfJ-yJ-saS" secondAttribute="trailing" id="JoJ-yX-EKk"/>
-                            <constraint firstItem="MfJ-yJ-saS" firstAttribute="leading" secondItem="RYE-Qe-fGc" secondAttribute="leading" id="f4n-xH-htK"/>
-                            <constraint firstAttribute="bottom" secondItem="MfJ-yJ-saS" secondAttribute="bottom" id="nXg-kz-Ec8"/>
+                            <constraint firstAttribute="trailing" secondItem="MfJ-yJ-saS" secondAttribute="trailing" id="Wis-m2-UgX"/>
+                            <constraint firstAttribute="bottom" secondItem="MfJ-yJ-saS" secondAttribute="bottom" id="a42-Bt-wMS"/>
+                            <constraint firstItem="MfJ-yJ-saS" firstAttribute="leading" secondItem="RYE-Qe-fGc" secondAttribute="leading" id="kxS-gm-Gyz"/>
+                            <constraint firstItem="MfJ-yJ-saS" firstAttribute="top" secondItem="RYE-Qe-fGc" secondAttribute="top" id="qoW-hl-3Db"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -242,20 +240,20 @@
         <!--Name View Controller - Name-->
         <scene sceneID="iGK-ri-jy1">
             <objects>
-                <viewController title="Name" id="qsX-MF-grl" customClass="MKSNameViewController" sceneMemberID="viewController">
+                <viewController title="Name" extendedLayoutIncludesOpaqueBars="YES" id="qsX-MF-grl" customClass="MKSNameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Un9-SP-mQL"/>
                         <viewControllerLayoutGuide type="bottom" id="2Ew-qC-Qo7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="duk-SG-D1F">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-cC-EZL">
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-cC-EZL">
                                 <rect key="frame" x="0.0" y="70" width="320" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sru-eQ-uCD">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sru-eQ-uCD">
                                 <rect key="frame" x="0.0" y="20" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -289,7 +287,6 @@
                             <constraint firstItem="sru-eQ-uCD" firstAttribute="top" secondItem="Un9-SP-mQL" secondAttribute="bottom" constant="20" id="ujM-C9-ec2"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Name" id="HLJ-Hh-xcw"/>
                     <connections>
                         <outlet property="markShowName" destination="rlY-BE-nfM" id="q7L-nR-wsa"/>
