@@ -10,28 +10,23 @@
 // TODO: Figure out why views are too large on first load
 
 #import "MKSPlayViewController.h"
-#import "CASMarkdownParser.h"
+#import "CASColorMacros.h"
+#import "markdown.h"
 #import "CASExternalScreen.h"
 
 #define SLIDE_MARGIN_SCREEN0 20
 #define SLIDE_MARGIN_SCREEN1 40
-
 #define DEFAULT_DIAGONAL 800
-
-//
-// TODO: abstraction of macros
-//
-
-//RGB color macro
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
-//RGB color macro with alpha
-#define UIColorFromRGBWithAlpha(rgbValue,a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 @interface MKSPlayViewController ()
 
+@property (nonatomic) int currentPage;
 @property (strong, nonatomic) NSArray *markShowSlides;
 @property (strong, nonatomic) NSArray *markShowPresenterNotes;
+@property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panLeft;
+@property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panRight;
+@property (nonatomic, strong) UIImageView *imgvcChild1;
+
 @property (strong, nonatomic) NSDictionary *markShowSlideStyle;
 @property (strong, nonatomic) NSDictionary *markShowNoteStyle;
 @property (strong, nonatomic) NSMutableArray *pageViews;
@@ -39,17 +34,20 @@
 @property (strong, nonatomic) MKSSlideView *airPlayView;
 @property (strong, nonatomic) CASExternalScreen *externalScreen;
 
-- (void)prepareSlideData;
+- (void)preparePresentationData;
+- (void)setPageControls;
+- (void)setPage:(NSInteger)page;
+- (NSString *)getHTML:(NSString*)fromMarkdown;
+/*
 - (void)preparePages;
 - (void)prepareExternalExternalScreen;
 - (void)getStyleInformation:(NSString *)styleName;
 - (void)setPageSize;
-- (void)loadPage:(NSInteger)page;
 - (void)purgePage:(NSInteger)page;
 - (void)loadVisiblePages:(BOOL)purgeAllExistingPages;
 - (void)loadPageForAirPlay:(NSInteger)page;
 - (void)unloadPageForAirPlay;
-
+*/
 @end
 
 #pragma mark - Play the MarkShow
@@ -60,29 +58,32 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [self prepareSlideData];
-    [self preparePages];
-    [self prepareExternalExternalScreen];
-    [self getStyleInformation:self.markShowSlidesStyle];
+    [self preparePresentationData];
+    [self setPageControls];
+    [self setPage:0];
     
-    self.scrollView.delegate = self;
+    //[self preparePages];
+    //[self prepareExternalExternalScreen];
+    //[self getStyleInformation:self.markShowSlidesStyle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     // don't sleep while we are playing a slideshow
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setPageSize];
-    [self loadVisiblePages:NO];
+    //[self setPageSize];
+    //[self loadVisiblePages:NO];
 }
 - (void)viewWillDisappear:(BOOL)animated {
-    [self unloadPageForAirPlay];
-    [super viewWillDisappear:animated];
     // the app can sleap when it is not playing a slideshow
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    
+    //[self unloadPageForAirPlay];
+    [super viewWillDisappear:animated];
 }
 
 - (void)dealloc {
@@ -91,49 +92,90 @@
 
 
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self loadVisiblePages:NO];
-}
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self setPageSize];
-    [self loadVisiblePages:YES];
+    //[self setPageSize];
+    //[self loadVisiblePages:YES];
 }
 
 
 
-- (void)prepareSlideData {
+- (void)preparePresentationData {
     NSMutableArray *slidesSlides = [[NSMutableArray alloc] init];
     NSMutableArray *slidesNotes = [[NSMutableArray alloc] init];
     NSArray *slides = [self.markShowSlidesText componentsSeparatedByString:@"\n\n\n\n"];
     for (NSString *slide in slides) {
         NSArray *slidesSplit = [slide componentsSeparatedByString:@"\n\n\n"];
-        [slidesSlides addObject:slidesSplit[0]];
+        [slidesSlides addObject:[self getHTML:slidesSplit[0]]];
         if ([slidesSplit count] > 1) {
-            [slidesNotes addObject:slidesSplit[1]];
+            [slidesNotes addObject:[self getHTML:slidesSplit[1]]];
         }else{
-            [slidesNotes addObject:slidesSplit[0]];
+            [slidesNotes addObject:[self getHTML:slidesSplit[0]]];
         }
     }
     self.markShowSlides = slidesSlides;
     self.markShowPresenterNotes = slidesNotes;
 }
 
+- (NSString *)getHTML:(NSString*)fromMarkdown {
+    const char *pageChars = [fromMarkdown UTF8String];
+    
+    // generate Discount document
+    Document *markdownIntermediate;
+    markdownIntermediate = mkd_string(pageChars, strlen(pageChars), 0);
+    mkd_compile(markdownIntermediate, 0);
+    
+    // generate HTML from Discount document
+    char *markdownHTML = NULL;
+    if (mkd_document(markdownIntermediate, &markdownHTML)) {
+        return [NSString stringWithUTF8String:markdownHTML];
+    }else{
+        return fromMarkdown;
+    }
+}
+
+- (void)setPageControls {
+    self.panLeft = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(EdgeLeftPanDetected:)];
+    self.panLeft.edges = UIRectEdgeLeft;
+    [self.webView addGestureRecognizer:self.panLeft];
+    
+    self.panRight = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(EdgeRightPanDetected:)];
+    self.panRight.edges = UIRectEdgeRight;
+    [self.webView addGestureRecognizer:self.panRight];
+}
+
+- (void)setPage:(NSInteger)page {
+    if (page < 0 || page >= self.markShowSlides.count) {
+        return;
+    }
+    self.currentPage = page;
+    
+    NSString *pageString = [self.markShowSlides objectAtIndex:page];
+    [self.webView loadHTMLString:pageString baseURL:nil];
+}
+
+
+
+
+
+
+/*
 - (void)preparePages {
     NSInteger pageCount = self.markShowSlides.count;
-    
+
     self.pageViews = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < pageCount; ++i) {
         [self.pageViews addObject:[NSNull null]];
     }
 }
-
+*/
+/*
 - (void)prepareExternalExternalScreen {
     self.externalScreen = [[CASExternalScreen alloc] init];
     [self.externalScreen setUpScreenConnectionNotificationHandlers];
     [self.externalScreen checkForExistingScreenAndInitializeIfPresent];
 }
-
+*/
+/*
 - (void)getStyleInformation:(NSString *)styleName {
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
     NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
@@ -141,20 +183,22 @@
     self.markShowSlideStyle = styleRoot[@"slides"];
     self.markShowNoteStyle = styleRoot[@"notes"];
 }
-
+*/
+/*
 - (void)setPageSize {
-    CGSize contentSize = self.scrollView.frame.size;
-    [self.scrollView setContentSize:CGSizeMake(contentSize.width * self.markShowSlides.count, contentSize.height)];
+    CGSize contentSize = self.webView.frame.size;
+    //[self.webView setContentSize:CGSizeMake(contentSize.width * self.markShowSlides.count, contentSize.height)];
 }
-
+*/
+/*
 - (void)loadPage:(NSInteger)page {
     if (page < 0 || page >= self.markShowSlides.count) {
         return;
     }
-    
+
     UIView *pageView = [self.pageViews objectAtIndex:page];
     if ((NSNull*)pageView == [NSNull null]) {
-        CGRect frame = self.scrollView.bounds;
+        CGRect frame = self.webView.bounds;
         frame.origin.x = ( frame.size.width * page ) + SLIDE_MARGIN_SCREEN0;
         frame.origin.y = SLIDE_MARGIN_SCREEN0;
         frame.size.width = frame.size.width - (SLIDE_MARGIN_SCREEN0 * 2);
@@ -165,18 +209,19 @@
         NSDictionary *styleSheet = self.markShowNoteStyle;
         NSNumber *currentBackgroundColor = styleSheet[@"backgroundColor"];
         
-        NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle andScale:@1];
+        //NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle andScale:@1];
         [newPageView setSlideContents:markShownSlide];
         [newPageView setBackgroundColor:[UIColor whiteColor]];
         
         [newPageView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
-        [self.scrollView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
+        //[self.scrollView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
 
         [self.scrollView addSubview:newPageView];
         [self.pageViews replaceObjectAtIndex:page withObject:newPageView];
     }
 }
-
+*/
+/*
 - (void)purgePage:(NSInteger)page {
     if (page < 0 || page >= self.markShowSlides.count) {
         return;
@@ -189,7 +234,8 @@
         [self.pageViews replaceObjectAtIndex:page withObject:[NSNull null]];
     }
 }
-
+*/
+/*
 - (void)loadVisiblePages:(BOOL)purgeAllExistingPages {
     // First, determine which page is currently visible
     CGFloat pageWidth = self.scrollView.frame.size.width;
@@ -221,9 +267,10 @@
     }
     
     // Load the airplay page
-    [self loadPageForAirPlay:page];
+    //[self loadPageForAirPlay:page];
 }
-
+ */
+/*
 - (void)loadPageForAirPlay:(NSInteger)page {
     CGRect frame = self.externalScreen.secondWindow.bounds;
     
@@ -272,11 +319,80 @@
     
     [self.externalScreen.secondWindow addSubview:self.airPlayView];
 }
-
+*/
+/*
 - (void)unloadPageForAirPlay {
     if (self.externalScreen.secondWindow) {
         self.externalScreen.secondWindow.hidden = YES;
         self.externalScreen.secondWindow = nil;
+    }
+}
+*/
+
+
+- (void) EdgeLeftPanDetected:(UIScreenEdgePanGestureRecognizer*)gesture {
+    if (self.currentPage <= 0) {
+        return;
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        UIGraphicsBeginImageContext(self.webView.frame.size);
+        [self.webView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *grab = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        if (_imgvcChild1) {
+            [ _imgvcChild1 removeFromSuperview ];
+        }
+        
+        _imgvcChild1 = [[ UIImageView alloc ] initWithImage:grab ];
+        _imgvcChild1.frame = self.webView.frame;
+        _imgvcChild1.userInteractionEnabled = YES;
+        //_imgvcChild2 = [self.arrayImagenes lastObject];
+        
+        [ self.view addSubview:_imgvcChild1 ];
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateChanged) {
+        _imgvcChild1.frame = CGRectMake([ gesture locationInView:_imgvcChild1.superview ].x, _imgvcChild1.frame.origin.y, _imgvcChild1.frame.size.width, _imgvcChild1.frame.size.height);
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [_imgvcChild1 removeFromSuperview];
+        [self setPage:self.currentPage - 1];
+    }
+}
+
+- (void) EdgeRightPanDetected:(UIScreenEdgePanGestureRecognizer*)gesture {
+    if ((self.currentPage + 1) >= self.markShowSlides.count) {
+        return;
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        UIGraphicsBeginImageContext(self.webView.frame.size);
+        [self.webView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *grab = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        if (_imgvcChild1) {
+            [ _imgvcChild1 removeFromSuperview ];
+        }
+        
+        _imgvcChild1 = [[ UIImageView alloc ] initWithImage:grab ];
+        _imgvcChild1.frame = self.webView.frame;
+        _imgvcChild1.userInteractionEnabled = YES;
+        //_imgvcChild2 = [self.arrayImagenes lastObject];
+        
+        [ self.view addSubview:_imgvcChild1 ];
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateChanged) {
+        _imgvcChild1.frame = CGRectMake([ gesture locationInView:_imgvcChild1.superview ].x, _imgvcChild1.frame.origin.y, _imgvcChild1.frame.size.width, _imgvcChild1.frame.size.height);
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [_imgvcChild1 removeFromSuperview];
+        [self setPage:self.currentPage + 1];
     }
 }
 

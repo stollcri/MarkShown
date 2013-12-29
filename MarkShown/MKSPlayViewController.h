@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MKSSlideView.h"
 
-@interface MKSPlayViewController : UIViewController <UIScrollViewDelegate>
+@interface MKSPlayViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSString *markShowSlidesText;
 @property (strong, nonatomic) NSString *markShowSlidesStyle;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

@@ -26,10 +26,31 @@
 		7D01D73017EA7D3C0066074E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D01D72E17EA7D3C0066074E /* InfoPlist.strings */; };
 		7D01D73217EA7D3C0066074E /* MarkShownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D73117EA7D3C0066074E /* MarkShownTests.m */; };
 		7D01D73D17EA96580066074E /* MKSNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D01D73C17EA96580066074E /* MKSNameViewController.m */; };
+		7D0F9F42186F53CD002E6F82 /* blocktags in Resources */ = {isa = PBXBuildFile; fileRef = 7D0F9F41186F53CD002E6F82 /* blocktags */; };
+		7D0F9F71186F55AA002E6F82 /* amalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F57186F55AA002E6F82 /* amalloc.c */; };
+		7D0F9F72186F55AA002E6F82 /* basename.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F58186F55AA002E6F82 /* basename.c */; };
+		7D0F9F73186F55AA002E6F82 /* Csio.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F59186F55AA002E6F82 /* Csio.c */; };
+		7D0F9F74186F55AA002E6F82 /* css.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F5A186F55AA002E6F82 /* css.c */; };
+		7D0F9F75186F55AA002E6F82 /* docheader.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F5B186F55AA002E6F82 /* docheader.c */; };
+		7D0F9F76186F55AA002E6F82 /* dumptree.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F5C186F55AA002E6F82 /* dumptree.c */; };
+		7D0F9F77186F55AA002E6F82 /* emmatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F5D186F55AA002E6F82 /* emmatch.c */; };
+		7D0F9F78186F55AA002E6F82 /* flags.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F5E186F55AA002E6F82 /* flags.c */; };
+		7D0F9F79186F55AA002E6F82 /* generate.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F5F186F55AA002E6F82 /* generate.c */; };
+		7D0F9F7A186F55AA002E6F82 /* github_flavoured.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F60186F55AA002E6F82 /* github_flavoured.c */; };
+		7D0F9F7B186F55AA002E6F82 /* html5.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F61186F55AA002E6F82 /* html5.c */; };
+		7D0F9F7E186F55AA002E6F82 /* markdown.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F64186F55AA002E6F82 /* markdown.c */; };
+		7D0F9F80186F55AA002E6F82 /* mkdio.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F66186F55AA002E6F82 /* mkdio.c */; };
+		7D0F9F82186F55AA002E6F82 /* pgm_options.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F68186F55AA002E6F82 /* pgm_options.c */; };
+		7D0F9F83186F55AA002E6F82 /* resource.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F69186F55AA002E6F82 /* resource.c */; };
+		7D0F9F84186F55AA002E6F82 /* setup.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6A186F55AA002E6F82 /* setup.c */; };
+		7D0F9F85186F55AA002E6F82 /* tags.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6B186F55AA002E6F82 /* tags.c */; };
+		7D0F9F87186F55AA002E6F82 /* toc.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6D186F55AA002E6F82 /* toc.c */; };
+		7D0F9F88186F55AA002E6F82 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6E186F55AA002E6F82 /* version.c */; };
+		7D0F9F89186F55AA002E6F82 /* xml.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6F186F55AA002E6F82 /* xml.c */; };
+		7D0F9F8A186F55AA002E6F82 /* xmlpage.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F70186F55AA002E6F82 /* xmlpage.c */; };
 		7D1221F517F7291B002B328C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1221F417F7291B002B328C /* CoreText.framework */; };
 		7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1221F717F72E84002B328C /* MKSSlideView.m */; };
 		7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */; };
-		7D365C3217FA5429007C4A0D /* CASMarkdownParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */; };
 		7D8E7B30180639C200B6BC4E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2D180639C200B6BC4E /* Default.png */; };
 		7D8E7B31180639C200B6BC4E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2E180639C200B6BC4E /* Default@2x.png */; };
 		7D8E7B32180639C200B6BC4E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2F180639C200B6BC4E /* Default-568h@2x.png */; };
@@ -77,13 +98,41 @@
 		7D01D73117EA7D3C0066074E /* MarkShownTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkShownTests.m; sourceTree = "<group>"; };
 		7D01D73B17EA96580066074E /* MKSNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSNameViewController.h; sourceTree = "<group>"; };
 		7D01D73C17EA96580066074E /* MKSNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSNameViewController.m; sourceTree = "<group>"; };
+		7D0F9F41186F53CD002E6F82 /* blocktags */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blocktags; sourceTree = "<group>"; };
+		7D0F9F50186F55AA002E6F82 /* amalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amalloc.h; sourceTree = "<group>"; };
+		7D0F9F51186F55AA002E6F82 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		7D0F9F52186F55AA002E6F82 /* cstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cstring.h; sourceTree = "<group>"; };
+		7D0F9F53186F55AA002E6F82 /* markdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = markdown.h; sourceTree = "<group>"; };
+		7D0F9F54186F55AA002E6F82 /* mkdio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mkdio.h; sourceTree = "<group>"; };
+		7D0F9F55186F55AA002E6F82 /* pgm_options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pgm_options.h; sourceTree = "<group>"; };
+		7D0F9F56186F55AA002E6F82 /* tags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tags.h; sourceTree = "<group>"; };
+		7D0F9F57186F55AA002E6F82 /* amalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = amalloc.c; sourceTree = "<group>"; };
+		7D0F9F58186F55AA002E6F82 /* basename.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = basename.c; sourceTree = "<group>"; };
+		7D0F9F59186F55AA002E6F82 /* Csio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Csio.c; sourceTree = "<group>"; };
+		7D0F9F5A186F55AA002E6F82 /* css.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = css.c; sourceTree = "<group>"; };
+		7D0F9F5B186F55AA002E6F82 /* docheader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = docheader.c; sourceTree = "<group>"; };
+		7D0F9F5C186F55AA002E6F82 /* dumptree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dumptree.c; sourceTree = "<group>"; };
+		7D0F9F5D186F55AA002E6F82 /* emmatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = emmatch.c; sourceTree = "<group>"; };
+		7D0F9F5E186F55AA002E6F82 /* flags.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flags.c; sourceTree = "<group>"; };
+		7D0F9F5F186F55AA002E6F82 /* generate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = generate.c; sourceTree = "<group>"; };
+		7D0F9F60186F55AA002E6F82 /* github_flavoured.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = github_flavoured.c; sourceTree = "<group>"; };
+		7D0F9F61186F55AA002E6F82 /* html5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html5.c; sourceTree = "<group>"; };
+		7D0F9F64186F55AA002E6F82 /* markdown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = markdown.c; sourceTree = "<group>"; };
+		7D0F9F66186F55AA002E6F82 /* mkdio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mkdio.c; sourceTree = "<group>"; };
+		7D0F9F68186F55AA002E6F82 /* pgm_options.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pgm_options.c; sourceTree = "<group>"; };
+		7D0F9F69186F55AA002E6F82 /* resource.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = resource.c; sourceTree = "<group>"; };
+		7D0F9F6A186F55AA002E6F82 /* setup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = setup.c; sourceTree = "<group>"; };
+		7D0F9F6B186F55AA002E6F82 /* tags.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tags.c; sourceTree = "<group>"; };
+		7D0F9F6D186F55AA002E6F82 /* toc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = toc.c; sourceTree = "<group>"; };
+		7D0F9F6E186F55AA002E6F82 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		7D0F9F6F186F55AA002E6F82 /* xml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml.c; sourceTree = "<group>"; };
+		7D0F9F70186F55AA002E6F82 /* xmlpage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlpage.c; sourceTree = "<group>"; };
+		7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASColorMacros.h; sourceTree = "<group>"; };
 		7D1221F417F7291B002B328C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		7D1221F617F72E84002B328C /* MKSSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSSlideView.h; sourceTree = "<group>"; };
 		7D1221F717F72E84002B328C /* MKSSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSSlideView.m; sourceTree = "<group>"; };
 		7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExternalScreen.h; sourceTree = "<group>"; };
 		7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExternalScreen.m; sourceTree = "<group>"; };
-		7D365C3017FA5429007C4A0D /* CASMarkdownParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASMarkdownParser.h; sourceTree = "<group>"; };
-		7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASMarkdownParser.m; sourceTree = "<group>"; };
 		7D8E7B2D180639C200B6BC4E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7D8E7B2E180639C200B6BC4E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		7D8E7B2F180639C200B6BC4E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -158,6 +207,7 @@
 		7D01D70517EA7D3C0066074E /* MarkShown */ = {
 			isa = PBXGroup;
 			children = (
+				7D0F9F33186F4FEC002E6F82 /* Discount-2.1.6 */,
 				7D01D70E17EA7D3C0066074E /* MKSAppDelegate.h */,
 				7D01D70F17EA7D3C0066074E /* MKSAppDelegate.m */,
 				7D01D71117EA7D3C0066074E /* Main.storyboard */,
@@ -171,8 +221,7 @@
 				7DFF8F6017EFA1740038D57D /* MKSPlayViewController.m */,
 				7D1221F617F72E84002B328C /* MKSSlideView.h */,
 				7D1221F717F72E84002B328C /* MKSSlideView.m */,
-				7D365C3017FA5429007C4A0D /* CASMarkdownParser.h */,
-				7D365C3117FA5429007C4A0D /* CASMarkdownParser.m */,
+				7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */,
 				7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */,
 				7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */,
 				7D01D71D17EA7D3C0066074E /* Images.xcassets */,
@@ -217,6 +266,42 @@
 				7D01D72E17EA7D3C0066074E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7D0F9F33186F4FEC002E6F82 /* Discount-2.1.6 */ = {
+			isa = PBXGroup;
+			children = (
+				7D0F9F41186F53CD002E6F82 /* blocktags */,
+				7D0F9F50186F55AA002E6F82 /* amalloc.h */,
+				7D0F9F51186F55AA002E6F82 /* config.h */,
+				7D0F9F52186F55AA002E6F82 /* cstring.h */,
+				7D0F9F53186F55AA002E6F82 /* markdown.h */,
+				7D0F9F54186F55AA002E6F82 /* mkdio.h */,
+				7D0F9F55186F55AA002E6F82 /* pgm_options.h */,
+				7D0F9F56186F55AA002E6F82 /* tags.h */,
+				7D0F9F57186F55AA002E6F82 /* amalloc.c */,
+				7D0F9F58186F55AA002E6F82 /* basename.c */,
+				7D0F9F59186F55AA002E6F82 /* Csio.c */,
+				7D0F9F5A186F55AA002E6F82 /* css.c */,
+				7D0F9F5B186F55AA002E6F82 /* docheader.c */,
+				7D0F9F5C186F55AA002E6F82 /* dumptree.c */,
+				7D0F9F5D186F55AA002E6F82 /* emmatch.c */,
+				7D0F9F5E186F55AA002E6F82 /* flags.c */,
+				7D0F9F5F186F55AA002E6F82 /* generate.c */,
+				7D0F9F60186F55AA002E6F82 /* github_flavoured.c */,
+				7D0F9F61186F55AA002E6F82 /* html5.c */,
+				7D0F9F64186F55AA002E6F82 /* markdown.c */,
+				7D0F9F66186F55AA002E6F82 /* mkdio.c */,
+				7D0F9F68186F55AA002E6F82 /* pgm_options.c */,
+				7D0F9F69186F55AA002E6F82 /* resource.c */,
+				7D0F9F6A186F55AA002E6F82 /* setup.c */,
+				7D0F9F6B186F55AA002E6F82 /* tags.c */,
+				7D0F9F6D186F55AA002E6F82 /* toc.c */,
+				7D0F9F6E186F55AA002E6F82 /* version.c */,
+				7D0F9F6F186F55AA002E6F82 /* xml.c */,
+				7D0F9F70186F55AA002E6F82 /* xmlpage.c */,
+			);
+			name = "Discount-2.1.6";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +395,7 @@
 				7DF5A07E1815594A00DEEBB5 /* markShown0120.png in Resources */,
 				7D01D71317EA7D3C0066074E /* Main.storyboard in Resources */,
 				7DF5A07D1815594A00DEEBB5 /* markShown0058.png in Resources */,
+				7D0F9F42186F53CD002E6F82 /* blocktags in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,15 +414,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D0F9F87186F55AA002E6F82 /* toc.c in Sources */,
+				7D0F9F79186F55AA002E6F82 /* generate.c in Sources */,
+				7D0F9F73186F55AA002E6F82 /* Csio.c in Sources */,
+				7D0F9F76186F55AA002E6F82 /* dumptree.c in Sources */,
+				7D0F9F74186F55AA002E6F82 /* css.c in Sources */,
 				7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */,
+				7D0F9F88186F55AA002E6F82 /* version.c in Sources */,
+				7D0F9F82186F55AA002E6F82 /* pgm_options.c in Sources */,
+				7D0F9F83186F55AA002E6F82 /* resource.c in Sources */,
 				7D01D71617EA7D3C0066074E /* MarkShown.xcdatamodeld in Sources */,
+				7D0F9F89186F55AA002E6F82 /* xml.c in Sources */,
 				7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */,
+				7D0F9F72186F55AA002E6F82 /* basename.c in Sources */,
+				7D0F9F80186F55AA002E6F82 /* mkdio.c in Sources */,
 				7D01D71017EA7D3C0066074E /* MKSAppDelegate.m in Sources */,
+				7D0F9F85186F55AA002E6F82 /* tags.c in Sources */,
+				7D0F9F8A186F55AA002E6F82 /* xmlpage.c in Sources */,
+				7D0F9F7A186F55AA002E6F82 /* github_flavoured.c in Sources */,
 				7D01D73D17EA96580066074E /* MKSNameViewController.m in Sources */,
+				7D0F9F78186F55AA002E6F82 /* flags.c in Sources */,
+				7D0F9F7B186F55AA002E6F82 /* html5.c in Sources */,
+				7D0F9F75186F55AA002E6F82 /* docheader.c in Sources */,
+				7D0F9F77186F55AA002E6F82 /* emmatch.c in Sources */,
+				7D0F9F71186F55AA002E6F82 /* amalloc.c in Sources */,
 				7DFF8F6117EFA1740038D57D /* MKSPlayViewController.m in Sources */,
-				7D365C3217FA5429007C4A0D /* CASMarkdownParser.m in Sources */,
 				7D01D71917EA7D3C0066074E /* MKSMasterViewController.m in Sources */,
 				7D01D70C17EA7D3C0066074E /* main.m in Sources */,
+				7D0F9F84186F55AA002E6F82 /* setup.c in Sources */,
+				7D0F9F7E186F55AA002E6F82 /* markdown.c in Sources */,
 				7D01D71C17EA7D3C0066074E /* MKSEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
