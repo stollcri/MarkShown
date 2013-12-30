@@ -48,6 +48,8 @@
 		7D0F9F88186F55AA002E6F82 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6E186F55AA002E6F82 /* version.c */; };
 		7D0F9F89186F55AA002E6F82 /* xml.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6F186F55AA002E6F82 /* xml.c */; };
 		7D0F9F8A186F55AA002E6F82 /* xmlpage.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F70186F55AA002E6F82 /* xmlpage.c */; };
+		7D0F9F911871AF9A002E6F82 /* MarkShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F901871AF9A002E6F82 /* MarkShow.m */; };
+		7D0F9F941871B6BC002E6F82 /* MKSStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F931871B6BC002E6F82 /* MKSStyleViewController.m */; };
 		7D1221F517F7291B002B328C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1221F417F7291B002B328C /* CoreText.framework */; };
 		7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */; };
 		7D8E7B30180639C200B6BC4E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2D180639C200B6BC4E /* Default.png */; };
@@ -127,6 +129,11 @@
 		7D0F9F6F186F55AA002E6F82 /* xml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml.c; sourceTree = "<group>"; };
 		7D0F9F70186F55AA002E6F82 /* xmlpage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlpage.c; sourceTree = "<group>"; };
 		7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASColorMacros.h; sourceTree = "<group>"; };
+		7D0F9F8E1871AED6002E6F82 /* MarkShownV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = MarkShownV2.xcdatamodel; sourceTree = "<group>"; };
+		7D0F9F8F1871AF9A002E6F82 /* MarkShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarkShow.h; path = ../MarkShow.h; sourceTree = "<group>"; };
+		7D0F9F901871AF9A002E6F82 /* MarkShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarkShow.m; path = ../MarkShow.m; sourceTree = "<group>"; };
+		7D0F9F921871B6BC002E6F82 /* MKSStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSStyleViewController.h; sourceTree = "<group>"; };
+		7D0F9F931871B6BC002E6F82 /* MKSStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSStyleViewController.m; sourceTree = "<group>"; };
 		7D1221F417F7291B002B328C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExternalScreen.h; sourceTree = "<group>"; };
 		7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExternalScreen.m; sourceTree = "<group>"; };
@@ -212,6 +219,8 @@
 				7D01D71817EA7D3C0066074E /* MKSMasterViewController.m */,
 				7D01D73B17EA96580066074E /* MKSNameViewController.h */,
 				7D01D73C17EA96580066074E /* MKSNameViewController.m */,
+				7D0F9F921871B6BC002E6F82 /* MKSStyleViewController.h */,
+				7D0F9F931871B6BC002E6F82 /* MKSStyleViewController.m */,
 				7D01D71A17EA7D3C0066074E /* MKSEditViewController.h */,
 				7D01D71B17EA7D3C0066074E /* MKSEditViewController.m */,
 				7DFF8F5F17EFA1740038D57D /* MKSPlayViewController.h */,
@@ -221,6 +230,8 @@
 				7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */,
 				7D01D71D17EA7D3C0066074E /* Images.xcassets */,
 				7D01D71417EA7D3C0066074E /* MarkShown.xcdatamodeld */,
+				7D0F9F8F1871AF9A002E6F82 /* MarkShow.h */,
+				7D0F9F901871AF9A002E6F82 /* MarkShow.m */,
 				7D01D70617EA7D3C0066074E /* Supporting Files */,
 			);
 			path = MarkShown;
@@ -416,8 +427,10 @@
 				7D0F9F74186F55AA002E6F82 /* css.c in Sources */,
 				7D0F9F88186F55AA002E6F82 /* version.c in Sources */,
 				7D0F9F82186F55AA002E6F82 /* pgm_options.c in Sources */,
+				7D0F9F941871B6BC002E6F82 /* MKSStyleViewController.m in Sources */,
 				7D0F9F83186F55AA002E6F82 /* resource.c in Sources */,
 				7D01D71617EA7D3C0066074E /* MarkShown.xcdatamodeld in Sources */,
+				7D0F9F911871AF9A002E6F82 /* MarkShow.m in Sources */,
 				7D0F9F89186F55AA002E6F82 /* xml.c in Sources */,
 				7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */,
 				7D0F9F72186F55AA002E6F82 /* basename.c in Sources */,
@@ -665,6 +678,7 @@
 		7D01D71417EA7D3C0066074E /* MarkShown.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				7D0F9F8E1871AED6002E6F82 /* MarkShownV2.xcdatamodel */,
 				7D01D71517EA7D3C0066074E /* MarkShown.xcdatamodel */,
 			);
 			currentVersion = 7D01D71517EA7D3C0066074E /* MarkShown.xcdatamodel */;
