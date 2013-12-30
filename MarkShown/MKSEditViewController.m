@@ -53,15 +53,12 @@
 
 - (void)setUpKeyboardNotificationHandlers {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    //[center addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)tearDownScreenConnectionNotificationHandlers {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    //[center removeObserver:self name:UIScreenDidConnectNotification object:nil];
-    //[center removeObserver:self name:UIScreenDidDisconnectNotification object:nil];
     [center removeObserver:self name:nil object:nil];
 }
 

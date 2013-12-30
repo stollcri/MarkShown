@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MKSStyleViewController : UIViewController
+@interface MKSStyleViewController : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) id markShowItem;
 @property (weak, nonatomic) IBOutlet UITextView *textView;

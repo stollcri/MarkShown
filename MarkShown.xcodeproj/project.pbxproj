@@ -226,6 +226,7 @@
 				7D01D71B17EA7D3C0066074E /* MKSEditViewController.m */,
 				7DFF8F5F17EFA1740038D57D /* MKSPlayViewController.h */,
 				7DFF8F6017EFA1740038D57D /* MKSPlayViewController.m */,
+				7D0F9F951871BBFD002E6F82 /* MKSDefaultStrings.h */,
 				7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */,
 				7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */,
 				7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */,
@@ -233,7 +234,6 @@
 				7D01D71417EA7D3C0066074E /* MarkShown.xcdatamodeld */,
 				7D0F9F8F1871AF9A002E6F82 /* MarkShow.h */,
 				7D0F9F901871AF9A002E6F82 /* MarkShow.m */,
-				7D0F9F951871BBFD002E6F82 /* MKSDefaultStrings.h */,
 				7D01D70617EA7D3C0066074E /* Supporting Files */,
 			);
 			path = MarkShown;
