@@ -14,11 +14,8 @@
 #import "CASExternalScreen.h"
 
 #define SLIDE_ANIMATION_TIME 0.25
-#define SLIDE_MARGIN_SCREEN0 20
-#define SLIDE_MARGIN_SCREEN1 40
 #define PAN_FROM_LEFT 0
 #define PAN_FROM_RIGHT 1
-#define DEFAULT_DIAGONAL 800
 
 @interface MKSPlayViewController ()
 
@@ -31,37 +28,12 @@
 @property (nonatomic, strong) UIImageView *defaultImage;
 @property (nonatomic, strong) UIImageView *animationImage1;
 @property (nonatomic, strong) UIImageView *animationImage2;
+@property (strong, nonatomic) UIWebView *airPlayView;
+@property (strong, nonatomic) CASExternalScreen *externalScreen;
 
 @property (strong, nonatomic) NSDictionary *markShowSlideStyle;
 @property (strong, nonatomic) NSDictionary *markShowNoteStyle;
-@property (strong, nonatomic) NSMutableArray *pageViews;
 
-@property (strong, nonatomic) MKSSlideView *airPlayView;
-@property (strong, nonatomic) CASExternalScreen *externalScreen;
-/*
-- (NSString *)getHTML:(NSString*)fromMarkdown;
-- (void)preparePresentationData;
-- (void)setDefaultImage;
-- (void)setPageControls;
-- (void)setPage:(NSInteger)page;
-*/
-/*
-- (void)preparePages;
-- (void)prepareExternalExternalScreen;
-- (void)getStyleInformation:(NSString *)styleName;
-- (void)setPageSize;
-- (void)purgePage:(NSInteger)page;
-- (void)loadVisiblePages:(BOOL)purgeAllExistingPages;
-- (void)loadPageForAirPlay:(NSInteger)page;
-- (void)unloadPageForAirPlay;
-*/
-/*
-- (void)didPanFromLeft:(UIScreenEdgePanGestureRecognizer*)gesture;
-- (void)didPanFromRight:(UIScreenEdgePanGestureRecognizer*)gesture;
-- (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side;
-- (void)addAnimationChild:(CGFloat)withXPosition;
-- (void)removeAnimationChildren;
-*/
 @end
 
 #pragma mark - Play the MarkShow
@@ -73,29 +45,24 @@
 	// Do any additional setup after loading the view.
     
     [self preparePresentationData];
+    [self prepareExternalExternalScreen];
     [self setDefaultImage];
     [self setPageControls];
     [self setPage:0];
-    [self prepareExternalExternalScreen];
-    //[self getStyleInformation:self.markShowSlidesStyle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     // don't sleep while we are playing a slideshow
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //[self setPageSize];
-    //[self loadVisiblePages:NO];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     // the app can sleap when it is not playing a slideshow
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    
-    //[self unloadPageForAirPlay];
+    [self freeExternalScreen];
     [super viewWillDisappear:animated];
 }
 
@@ -103,31 +70,11 @@
     [self.externalScreen tearDownScreenConnectionNotificationHandlers];
 }
 
-
-
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    //[self setPageSize];
-    //[self loadVisiblePages:YES];
+    [self clearSlideImageCache];
 }
 
-
-
-- (NSString *)getHTML:(NSString*)fromMarkdown {
-    const char *pageChars = [fromMarkdown UTF8String];
-    
-    // generate Discount document
-    Document *markdownIntermediate;
-    markdownIntermediate = mkd_string(pageChars, (int)strlen(pageChars), 0);
-    mkd_compile(markdownIntermediate, 0);
-    
-    // generate HTML from Discount document
-    char *markdownHTML = NULL;
-    if (mkd_document(markdownIntermediate, &markdownHTML)) {
-        return [NSString stringWithUTF8String:markdownHTML];
-    }else{
-        return fromMarkdown;
-    }
-}
+#pragma mark - Markshown Methods
 
 - (void)preparePresentationData {
     NSMutableArray *slidesSlides = [[NSMutableArray alloc] init];
@@ -151,7 +98,26 @@
     self.markShowPresenterNotes = slidesNotes;
 }
 
+- (NSString *)getHTML:(NSString*)fromMarkdown {
+    const char *pageChars = [fromMarkdown UTF8String];
+    
+    // generate Discount document
+    Document *markdownIntermediate;
+    markdownIntermediate = mkd_string(pageChars, (int)strlen(pageChars), 0);
+    mkd_compile(markdownIntermediate, 0);
+    
+    // generate HTML from Discount document
+    char *markdownHTML = NULL;
+    if (mkd_document(markdownIntermediate, &markdownHTML)) {
+        return [NSString stringWithUTF8String:markdownHTML];
+    }else{
+        return fromMarkdown;
+    }
+}
+
 - (void)setDefaultImage {
+    // TODO: is there are way to get the actual images?
+    // can we create a UIWebView in Memory and grab the images from there?
     UIGraphicsBeginImageContext(self.webView.frame.size);
     [self.webView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *grab = UIGraphicsGetImageFromCurrentImageContext();
@@ -178,176 +144,40 @@
     }
     self.currentPage = page;
     
-    NSString *pageString = [self.markShowSlides objectAtIndex:page];
+    NSString *pageString = [self.markShowPresenterNotes objectAtIndex:page];
     [self.webView loadHTMLString:pageString baseURL:nil];
+    
+    pageString = [self.markShowSlides objectAtIndex:page];
+    [self.airPlayView loadHTMLString:pageString baseURL:nil];
 }
 
+- (void)clearSlideImageCache {
+    for (int i=0; i<self.markShowSlidesImages.count; ++i) {
+        self.markShowSlidesImages[i] = [NSNull null];
+    }
+}
 
-
-
-
-
+#pragma mark - External Screen
 
 - (void)prepareExternalExternalScreen {
     self.externalScreen = [[CASExternalScreen alloc] init];
     [self.externalScreen setUpScreenConnectionNotificationHandlers];
     [self.externalScreen checkForExistingScreenAndInitializeIfPresent];
-}
-
-/*
-- (void)getStyleInformation:(NSString *)styleName {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
-    NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSDictionary *styleRoot = stylesRoot[styleName];
-    self.markShowSlideStyle = styleRoot[@"slides"];
-    self.markShowNoteStyle = styleRoot[@"notes"];
-}
-*/
-/*
-- (void)setPageSize {
-    CGSize contentSize = self.webView.frame.size;
-    //[self.webView setContentSize:CGSizeMake(contentSize.width * self.markShowSlides.count, contentSize.height)];
-}
-*/
-/*
-- (void)loadPage:(NSInteger)page {
-    if (page < 0 || page >= self.markShowSlides.count) {
-        return;
-    }
-
-    UIView *pageView = [self.pageViews objectAtIndex:page];
-    if ((NSNull*)pageView == [NSNull null]) {
-        CGRect frame = self.webView.bounds;
-        frame.origin.x = ( frame.size.width * page ) + SLIDE_MARGIN_SCREEN0;
-        frame.origin.y = SLIDE_MARGIN_SCREEN0;
-        frame.size.width = frame.size.width - (SLIDE_MARGIN_SCREEN0 * 2);
-        frame.size.height = frame.size.height - (SLIDE_MARGIN_SCREEN0 * 2);
-        
-        MKSSlideView *newPageView = [[MKSSlideView alloc] initWithFrame:frame];
-        
-        NSDictionary *styleSheet = self.markShowNoteStyle;
-        NSNumber *currentBackgroundColor = styleSheet[@"backgroundColor"];
-        
-        //NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowPresenterNotes objectAtIndex:page] withStyleSheet:self.markShowNoteStyle andScale:@1];
-        [newPageView setSlideContents:markShownSlide];
-        [newPageView setBackgroundColor:[UIColor whiteColor]];
-        
-        [newPageView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
-        //[self.scrollView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
-
-        [self.scrollView addSubview:newPageView];
-        [self.pageViews replaceObjectAtIndex:page withObject:newPageView];
-    }
-}
-*/
-/*
-- (void)purgePage:(NSInteger)page {
-    if (page < 0 || page >= self.markShowSlides.count) {
-        return;
-    }
     
-    // Remove a page from the scroll view and reset the container array
-    UIView *pageView = [self.pageViews objectAtIndex:page];
-    if ((NSNull*)pageView != [NSNull null]) {
-        [pageView removeFromSuperview];
-        [self.pageViews replaceObjectAtIndex:page withObject:[NSNull null]];
-    }
-}
-*/
-/*
-- (void)loadVisiblePages:(BOOL)purgeAllExistingPages {
-    // First, determine which page is currently visible
-    CGFloat pageWidth = self.scrollView.frame.size.width;
-    NSInteger page = (NSInteger)floor((self.scrollView.contentOffset.x * 2.0f + pageWidth) / (pageWidth * 2.0f));
-    
-    // Work out which pages you want to load
-    NSInteger firstPage = page - 2;
-    NSInteger lastPage = page + 2;
-    
-    if (purgeAllExistingPages) {
-        for (NSInteger i=0; i<self.markShowSlides.count; i++) {
-            [self purgePage:i];
-        }
-    }else{
-        // Purge anything before the first page
-        for (NSInteger i=0; i<firstPage; i++) {
-            [self purgePage:i];
-        }
-        
-        // Purge anything after the last page
-        for (NSInteger i=lastPage+1; i<self.markShowSlides.count; i++) {
-            [self purgePage:i];
-        }
-    }
-    
-	// Load pages in our range
-    for (NSInteger i=firstPage; i<=lastPage; i++) {
-        [self loadPage:i];
-    }
-    
-    // Load the airplay page
-    //[self loadPageForAirPlay:page];
-}
- */
-/*
-- (void)loadPageForAirPlay:(NSInteger)page {
-    CGRect frame = self.externalScreen.secondWindow.bounds;
-    
-    double diagonalLength = sqrt((frame.size.width * frame.size.width) + (frame.size.height * frame.size.height));
-    NSNumber *fontScale = [NSNumber numberWithDouble:(diagonalLength / DEFAULT_DIAGONAL)];
-    
-    frame.origin.x = floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]);
-    frame.origin.y = floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]);
-    frame.size.width = frame.size.width - (floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]) * 2);
-    frame.size.height = frame.size.height - (floor(SLIDE_MARGIN_SCREEN1 * [fontScale doubleValue]) * 2);
-    self.airPlayView = [[MKSSlideView alloc] initWithFrame:frame];
-    
-    NSAttributedString *markShownSlide = [CASMarkdownParser attributedStringFromMarkdown:[self.markShowSlides objectAtIndex:page] withStyleSheet:self.markShowSlideStyle andScale:fontScale];
-    
-    NSMutableAttributedString *pageCount = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%i", (int)(page+1)]];
-    
-    NSRange pageCountRange = NSMakeRange(0, [pageCount length]);
-    NSDictionary *styleSheet = self.markShowSlideStyle;
-    NSNumber *currentBackgroundColor = styleSheet[@"backgroundColor"];
-    NSDictionary *currentTypeStyle = styleSheet[@"footer"];
-    NSString *currentFontFace = currentTypeStyle[@"font"];
-    NSNumber *currentFontSize = currentTypeStyle[@"size"];
-    NSNumber *currentFontColor = currentTypeStyle[@"color"];
-    NSNumber *currentParagraphAlign = currentTypeStyle[@"align"];
-    currentFontSize = [NSNumber numberWithDouble:(floor([currentFontSize integerValue] * [fontScale doubleValue]))];
-    
-    UIFont *currentFont = [UIFont fontWithName:currentFontFace size:[currentFontSize floatValue]];
-    [pageCount addAttribute:NSFontAttributeName value:currentFont range:pageCountRange];
-    [pageCount addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB([currentFontColor integerValue]) range:pageCountRange];
-    
-    if ([currentParagraphAlign isEqualToNumber:@1]) {
-        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-        paragraph.alignment = NSTextAlignmentCenter;
-        [pageCount addAttribute:NSParagraphStyleAttributeName value:paragraph range:pageCountRange];
-    }else if([currentParagraphAlign isEqualToNumber:@2]) {
-        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-        paragraph.alignment = NSTextAlignmentRight;
-        [pageCount addAttribute:NSParagraphStyleAttributeName value:paragraph range:pageCountRange];
-    }
-     
-    [self.airPlayView setSlideContents:markShownSlide];
-    [self.airPlayView setSlideFooterCenter:pageCount];
-    
-    [self.airPlayView setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
-    [self.externalScreen.secondWindow setBackgroundColor:UIColorFromRGB([currentBackgroundColor integerValue])];
-    
+    self.airPlayView = [[UIWebView alloc] initWithFrame:self.externalScreen.secondWindow.bounds];
     [self.externalScreen.secondWindow addSubview:self.airPlayView];
+    self.airPlayView.scalesPageToFit = NO;
+    [self.airPlayView stringByEvaluatingJavaScriptFromString:@"document. body.style.zoom = 20.0;"];
 }
-*/
-/*
-- (void)unloadPageForAirPlay {
+
+- (void)freeExternalScreen {
     if (self.externalScreen.secondWindow) {
         self.externalScreen.secondWindow.hidden = YES;
         self.externalScreen.secondWindow = nil;
     }
 }
-*/
 
+#pragma mark - Panning Gestures
 
 - (void)didPanFromLeft:(UIScreenEdgePanGestureRecognizer*)gesture {
     // TODO: allow navigating back to the slide from a web page

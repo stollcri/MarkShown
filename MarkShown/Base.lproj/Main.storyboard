@@ -214,7 +214,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBP-7P-vzF">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBP-7P-vzF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -222,6 +222,12 @@
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UBP-7P-vzF" firstAttribute="top" secondItem="RYE-Qe-fGc" secondAttribute="top" id="8iO-2X-rQE"/>
+                            <constraint firstAttribute="bottom" secondItem="UBP-7P-vzF" secondAttribute="bottom" id="Mve-Yr-8l8"/>
+                            <constraint firstAttribute="trailing" secondItem="UBP-7P-vzF" secondAttribute="trailing" id="gYE-5K-pfc"/>
+                            <constraint firstItem="UBP-7P-vzF" firstAttribute="leading" secondItem="RYE-Qe-fGc" secondAttribute="leading" id="hN4-6F-v45"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Play" id="xDj-v2-y3k"/>

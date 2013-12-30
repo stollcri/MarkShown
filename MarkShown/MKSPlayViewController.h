@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKSSlideView.h"
 
 @interface MKSPlayViewController : UIViewController <UIGestureRecognizerDelegate>
 

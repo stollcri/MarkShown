@@ -49,7 +49,6 @@
 		7D0F9F89186F55AA002E6F82 /* xml.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F6F186F55AA002E6F82 /* xml.c */; };
 		7D0F9F8A186F55AA002E6F82 /* xmlpage.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0F9F70186F55AA002E6F82 /* xmlpage.c */; };
 		7D1221F517F7291B002B328C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D1221F417F7291B002B328C /* CoreText.framework */; };
-		7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1221F717F72E84002B328C /* MKSSlideView.m */; };
 		7D19C65117FCF5A300AAF808 /* CASExternalScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */; };
 		7D8E7B30180639C200B6BC4E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2D180639C200B6BC4E /* Default.png */; };
 		7D8E7B31180639C200B6BC4E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8E7B2E180639C200B6BC4E /* Default@2x.png */; };
@@ -129,8 +128,6 @@
 		7D0F9F70186F55AA002E6F82 /* xmlpage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlpage.c; sourceTree = "<group>"; };
 		7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASColorMacros.h; sourceTree = "<group>"; };
 		7D1221F417F7291B002B328C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		7D1221F617F72E84002B328C /* MKSSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSSlideView.h; sourceTree = "<group>"; };
-		7D1221F717F72E84002B328C /* MKSSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSSlideView.m; sourceTree = "<group>"; };
 		7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExternalScreen.h; sourceTree = "<group>"; };
 		7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExternalScreen.m; sourceTree = "<group>"; };
 		7D8E7B2D180639C200B6BC4E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -219,8 +216,6 @@
 				7D01D71B17EA7D3C0066074E /* MKSEditViewController.m */,
 				7DFF8F5F17EFA1740038D57D /* MKSPlayViewController.h */,
 				7DFF8F6017EFA1740038D57D /* MKSPlayViewController.m */,
-				7D1221F617F72E84002B328C /* MKSSlideView.h */,
-				7D1221F717F72E84002B328C /* MKSSlideView.m */,
 				7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */,
 				7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */,
 				7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */,
@@ -419,7 +414,6 @@
 				7D0F9F73186F55AA002E6F82 /* Csio.c in Sources */,
 				7D0F9F76186F55AA002E6F82 /* dumptree.c in Sources */,
 				7D0F9F74186F55AA002E6F82 /* css.c in Sources */,
-				7D1221F817F72E84002B328C /* MKSSlideView.m in Sources */,
 				7D0F9F88186F55AA002E6F82 /* version.c in Sources */,
 				7D0F9F82186F55AA002E6F82 /* pgm_options.c in Sources */,
 				7D0F9F83186F55AA002E6F82 /* resource.c in Sources */,
