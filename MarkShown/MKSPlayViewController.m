@@ -278,4 +278,8 @@
     }
 }
 
+- (IBAction)didPressRefresh:(id)sender {
+    [self setPage:self.currentPage];
+}
+
 @end

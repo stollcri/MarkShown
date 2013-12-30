@@ -230,7 +230,13 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Play" id="xDj-v2-y3k"/>
+                    <navigationItem key="navigationItem" title="Play" id="xDj-v2-y3k">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="sYB-Q5-OlQ">
+                            <connections>
+                                <action selector="didPressRefresh:" destination="AjB-gd-jr1" id="vbE-za-4P9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="webView" destination="UBP-7P-vzF" id="oYf-Zd-xvc"/>
                     </connections>

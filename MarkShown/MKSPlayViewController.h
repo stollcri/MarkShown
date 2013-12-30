@@ -13,5 +13,7 @@
 @property (strong, nonatomic) NSString *markShowSlidesText;
 @property (strong, nonatomic) NSString *markShowSlidesStyle;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+- (IBAction)didPressRefresh:(id)sender;
+
 
 @end
