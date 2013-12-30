@@ -280,24 +280,4 @@
     cell.detailTextLabel.text = [format stringFromDate:object.timeStamp];
 }
 
-- (NSArray *)getStyleNames {
-    // TODO: there has to be a better way to do this
-    if ([self.markShowStyles count] <= 0) {
-        NSMutableArray *styles = [[NSMutableArray alloc] init];
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MKSSlideStyles" ofType:@"plist"];
-        NSDictionary *stylesRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-        for (NSDictionary *currentStyle in stylesRoot) {
-            [styles addObject:[currentStyle description]];
-        }
-        
-        NSArray *sortedStyles;
-        sortedStyles = [styles sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            return [[a description] compare:[b description]];
-        }];
-        
-        self.markShowStyles = sortedStyles;
-    }
-    return self.markShowStyles;
-}
-
 @end
