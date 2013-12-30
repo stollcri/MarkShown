@@ -34,8 +34,7 @@
     
     // Update the user interface for the detail item.
     if (self.markShowItem) {
-        //NSLog(@"%@", [[self.markShowItem valueForKey:@"presentationCSS"] description]);
-        //[self.textView setText:[[self.markShowItem valueForKey:@"presentationCSS"] description]];
+        [self.textView setText:[[self.markShowItem valueForKey:@"presentationCSS"] description]];
     }
 }
 
@@ -43,6 +42,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self saveMarkShowName];
+    [super viewWillDisappear:animated];
+}
+
+- (void)saveMarkShowName {
+    if (self.markShowItem) {
+        // save the edited value
+        [self.markShowItem setValue:[self.textView text] forKey:@"presentationCSS"];
+    }
 }
 
 @end

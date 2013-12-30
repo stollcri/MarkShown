@@ -144,11 +144,12 @@
     }
     self.currentPage = page;
     
-    NSString *pageString = [self.markShowPresenterNotes objectAtIndex:page];
-    [self.webView loadHTMLString:pageString baseURL:nil];
+    NSString *presentationNotes = [self.markShowPresenterNotes objectAtIndex:page];
+    [self.webView loadHTMLString:presentationNotes baseURL:nil];
     
-    pageString = [self.markShowSlides objectAtIndex:page];
-    [self.airPlayView loadHTMLString:pageString baseURL:nil];
+    NSString *presentationSlides = [NSString stringWithFormat:@"%@%@%@%@%@", @"<html><head><style type='text/css'>", self.markShowSlidesStyle, @"</style></head><body>", [self.markShowSlides objectAtIndex:page], @"</body></html>"];
+    NSLog(@"%@", presentationSlides);
+    [self.airPlayView loadHTMLString:presentationSlides baseURL:nil];
 }
 
 - (void)clearSlideImageCache {

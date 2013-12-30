@@ -134,6 +134,7 @@
 		7D0F9F901871AF9A002E6F82 /* MarkShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarkShow.m; path = ../MarkShow.m; sourceTree = "<group>"; };
 		7D0F9F921871B6BC002E6F82 /* MKSStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSStyleViewController.h; sourceTree = "<group>"; };
 		7D0F9F931871B6BC002E6F82 /* MKSStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSStyleViewController.m; sourceTree = "<group>"; };
+		7D0F9F951871BBFD002E6F82 /* MKSDefaultStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKSDefaultStrings.h; sourceTree = "<group>"; };
 		7D1221F417F7291B002B328C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		7D19C64F17FCF5A300AAF808 /* CASExternalScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExternalScreen.h; sourceTree = "<group>"; };
 		7D19C65017FCF5A300AAF808 /* CASExternalScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExternalScreen.m; sourceTree = "<group>"; };
@@ -232,6 +233,7 @@
 				7D01D71417EA7D3C0066074E /* MarkShown.xcdatamodeld */,
 				7D0F9F8F1871AF9A002E6F82 /* MarkShow.h */,
 				7D0F9F901871AF9A002E6F82 /* MarkShow.m */,
+				7D0F9F951871BBFD002E6F82 /* MKSDefaultStrings.h */,
 				7D01D70617EA7D3C0066074E /* Supporting Files */,
 			);
 			path = MarkShown;
@@ -681,7 +683,7 @@
 				7D0F9F8E1871AED6002E6F82 /* MarkShownV2.xcdatamodel */,
 				7D01D71517EA7D3C0066074E /* MarkShown.xcdatamodel */,
 			);
-			currentVersion = 7D01D71517EA7D3C0066074E /* MarkShown.xcdatamodel */;
+			currentVersion = 7D0F9F8E1871AED6002E6F82 /* MarkShownV2.xcdatamodel */;
 			path = MarkShown.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

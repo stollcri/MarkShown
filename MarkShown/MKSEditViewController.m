@@ -72,7 +72,7 @@
         NSString *presentationContent = [[self.markShowItem valueForKey:@"presentationContent"] description];
         [[segue destinationViewController] setMarkShowSlidesText:presentationContent];
         
-        NSString *presentationStyle = [[self.markShowItem valueForKey:@"presentationStyle"] description];
+        NSString *presentationStyle = [[self.markShowItem valueForKey:@"presentationCSS"] description];
         [[segue destinationViewController] setMarkShowSlidesStyle:presentationStyle];
     }
 }

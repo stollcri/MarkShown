@@ -67,7 +67,6 @@
 - (IBAction)endMarkShowName:(id)sender {
     // on keyboard done button press go back to main view
     [self.navigationController popToRootViewControllerAnimated:YES];
-    //[self.markShowName resignFirstResponder];
 }
 
 @end
