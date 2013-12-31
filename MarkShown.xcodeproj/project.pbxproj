@@ -128,7 +128,7 @@
 		7D0F9F6F186F55AA002E6F82 /* xml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml.c; sourceTree = "<group>"; };
 		7D0F9F70186F55AA002E6F82 /* xmlpage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlpage.c; sourceTree = "<group>"; };
 		7D0F9F8D186F5FA4002E6F82 /* CASColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASColorMacros.h; sourceTree = "<group>"; };
-		7D0F9F8E1871AED6002E6F82 /* MarkShownV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = MarkShownV2.xcdatamodel; sourceTree = "<group>"; };
+		7D0F9F8E1871AED6002E6F82 /* MarkShownV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MarkShownV2.xcdatamodel; sourceTree = "<group>"; };
 		7D0F9F8F1871AF9A002E6F82 /* MarkShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarkShow.h; path = ../MarkShow.h; sourceTree = "<group>"; };
 		7D0F9F901871AF9A002E6F82 /* MarkShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarkShow.m; path = ../MarkShow.m; sourceTree = "<group>"; };
 		7D0F9F921871B6BC002E6F82 /* MKSStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSStyleViewController.h; sourceTree = "<group>"; };

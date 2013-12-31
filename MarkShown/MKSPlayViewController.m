@@ -24,7 +24,7 @@
 @property (strong, nonatomic) NSArray *markShowPresenterNotes;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panLeft;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panRight;
-@property (nonatomic, strong) UIWebView *animationView;
+@property (strong, nonatomic) UIWebView *animationView;
 @property (strong, nonatomic) UIWebView *airPlayView;
 @property (strong, nonatomic) CASExternalScreen *externalScreen;
 @property (strong, nonatomic) NSString *scaleFactor;
