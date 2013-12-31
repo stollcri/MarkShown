@@ -24,12 +24,10 @@
 @property (strong, nonatomic) NSArray *markShowPresenterNotes;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panLeft;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panRight;
-@property (nonatomic, strong) UIImageView *defaultImage;
-@property (nonatomic, strong) UIWebView *animationView1;
-@property (nonatomic, strong) UIWebView *animationView2;
+@property (nonatomic, strong) UIWebView *animationView;
 @property (strong, nonatomic) UIWebView *airPlayView;
 @property (strong, nonatomic) CASExternalScreen *externalScreen;
-@property (nonatomic) BOOL navigatedToWeb;
+@property (strong, nonatomic) NSString *scaleFactor;
 
 @property (strong, nonatomic) NSDictionary *markShowSlideStyle;
 @property (strong, nonatomic) NSDictionary *markShowNoteStyle;
@@ -113,8 +111,8 @@
 }
 
 - (void)prepareAnimationViews {
-    _animationView1 = [[UIWebView alloc] initWithFrame:self.webView.bounds];
-    _animationView2 = [[UIWebView alloc] initWithFrame:self.webView.bounds];
+     CGRect offScreen = CGRectMake(self.webView.bounds.size.width, self.webView.bounds.origin.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
+    _animationView = [[UIWebView alloc] initWithFrame:offScreen];
 }
 
 - (void)setPageControls {
@@ -132,18 +130,31 @@
         return;
     }
     self.currentPage = page;
-    self.navigatedToWeb = NO;
     
     NSString *presentationNotes = [self.markShowPresenterNotes objectAtIndex:page];
     [self.webView loadHTMLString:presentationNotes baseURL:nil];
     
-    NSString *presentationSlides = [NSString stringWithFormat:@"%@%@%@%@%@", @"<html><head><style type='text/css'>", self.markShowSlidesStyle, @"</style></head><body>", [self.markShowSlides objectAtIndex:page], @"</body></html>"];
+    NSString *presentationSlides = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", @"<html><head><meta name='viewport' content='width=device-width;initial-scale=", self.scaleFactor, @";maximum-scale=4.0;user-scalable=0;' /><style type='text/css'>", self.markShowSlidesStyle, @"</style></head><body>", [self.markShowSlides objectAtIndex:page], @"</body></html>"];
     
     //self.airPlayView.scalesPageToFit = NO;
     [self.airPlayView loadHTMLString:presentationSlides baseURL:nil];
 }
 
 #pragma mark - External Screen
+
+- (NSString*)setScaleFactor {
+    CGRect frame = self.externalScreen.secondWindow.bounds;
+    double diagonalLength = sqrt((frame.size.width * frame.size.width) + (frame.size.height * frame.size.height));
+    NSNumber *fontScale =  [NSNumber numberWithDouble:(diagonalLength / 800)];
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMaximumFractionDigits:2];
+    [formatter setRoundingMode: NSNumberFormatterRoundUp];
+    NSString *numberString = [formatter stringFromNumber:fontScale];
+    
+    return numberString;
+}
 
 - (void)prepareExternalExternalScreen {
     self.externalScreen = [[CASExternalScreen alloc] init];
@@ -153,6 +164,8 @@
     self.airPlayView = [[UIWebView alloc] initWithFrame:self.externalScreen.secondWindow.bounds];
     self.airPlayView.scalesPageToFit = NO;
     [self.externalScreen.secondWindow addSubview:self.airPlayView];
+    
+    self.scaleFactor = [self setScaleFactor];
 }
 
 - (void)freeExternalScreen {
@@ -166,70 +179,60 @@
 #pragma mark - Panning Gestures
 
 - (void)didPanFromLeft:(UIScreenEdgePanGestureRecognizer*)gesture {
-    // TODO: allow navigating back to the slide from a web page
-    if ((self.currentPage <= 0) && (!self.navigatedToWeb)) {
+    if (self.currentPage <= 0) {
         return;
     }
-    
-    if (self.navigatedToWeb) {
-        [self didPan:gesture fromSide:PAN_FROM_LEFT];
-    }else{
-        [self didPan:gesture fromSide:PAN_FROM_LEFT];
-    }
+    [self didPan:gesture fromSide:PAN_FROM_LEFT];
 }
 
 - (void)didPanFromRight:(UIScreenEdgePanGestureRecognizer*)gesture {
     if ((self.currentPage + 1) >= self.markShowSlides.count) {
         return;
     }
-    
     [self didPan:gesture fromSide:PAN_FROM_RIGHT];
 }
 
 - (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side  {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        //[self removeAnimationChildren];
+        CGRect onScreen = CGRectMake(self.webView.bounds.origin.x, self.webView.bounds.origin.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
+        CGRect offScreen = CGRectMake(self.webView.bounds.size.width, self.webView.bounds.origin.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
         
         if (side == PAN_FROM_LEFT) {
-            NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
-            [_animationView2 loadHTMLString:presentationNotes2 baseURL:nil];
-            
             NSString *presentationNotes1 = [self.markShowPresenterNotes objectAtIndex:self.currentPage-1];
-            [_animationView1 loadHTMLString:presentationNotes1 baseURL:nil];
-        
-            _animationView2.userInteractionEnabled = YES;
-            _animationView2.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-            _animationView2.layer.shadowOpacity = 0.5;
-            [self.view addSubview:_animationView2];
+            // preset below to reduce flicker from page loading
+            //NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
+            //[_animationView loadHTMLString:presentationNotes2 baseURL:nil];
             
-            _animationView1.userInteractionEnabled = YES;
-            _animationView1.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-            _animationView1.layer.shadowOpacity = 0.5;
-            [self.view insertSubview:_animationView1 belowSubview:_animationView2];
+            _animationView.frame = onScreen;
+            _animationView.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
+            _animationView.layer.shadowOpacity = 0.5;
+            [self.view addSubview:_animationView];
+            
+            [self.webView loadHTMLString:presentationNotes1 baseURL:nil];
         }else{
             NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage+1];
-            [_animationView2 loadHTMLString:presentationNotes2 baseURL:nil];
+            [_animationView loadHTMLString:presentationNotes2 baseURL:nil];
             
-            _animationView2.userInteractionEnabled = YES;
-            _animationView2.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-            _animationView2.layer.shadowOpacity = 0.5;
-            [self.view addSubview:_animationView2];
+            _animationView.frame = offScreen;
+            _animationView.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
+            _animationView.layer.shadowOpacity = 0.5;
+            [self.view addSubview:_animationView];
         }
-    }
     
-    if (gesture.state == UIGestureRecognizerStateChanged) {
-        _animationView2.frame = CGRectMake([gesture locationInView:_animationView2.superview].x, _animationView2.frame.origin.y, _animationView2.frame.size.width, _animationView2.frame.size.height);
-    }
-    
-    if (gesture.state == UIGestureRecognizerStateEnded) {
-        CGFloat xPosition = [gesture locationInView:_animationView2.superview].x;
-        CGFloat viewWidth = _animationView2.superview.frame.size.width;
+    }else if (gesture.state == UIGestureRecognizerStateChanged) {
+        _animationView.frame = CGRectMake([gesture locationInView:_animationView.superview].x, _animationView.frame.origin.y, _animationView.frame.size.width, _animationView.frame.size.height);
+        
+    }else if (gesture.state == UIGestureRecognizerStateEnded) {
+        CGFloat xPosition = [gesture locationInView:_animationView.superview].x;
+        CGFloat viewWidth = _animationView.superview.frame.size.width;
         // TODO: make the pan stick at 40% or so instead of half way
         CGFloat xMidpoint = floorf(viewWidth / 2);
         
         if (side == PAN_FROM_LEFT) {
             if (xPosition > xMidpoint) {
                 [self setPage:self.currentPage - 1];
+            }else{
+                [self setPage:self.currentPage];
             }
         } else {
             if (xPosition < xMidpoint) {
@@ -237,21 +240,23 @@
             }
         }
         
-        [self finishPanAnimation:[gesture locationInView:_animationView2.superview].x usingDefaultImage:NO];
+        [self finishPanAnimation:[gesture locationInView:_animationView.superview].x usingDefaultImage:NO];
+        
+        
     }
 }
 
 - (void)finishPanAnimation:(CGFloat)withXPosition usingDefaultImage:(BOOL)useImageView {
     CGFloat xPosition = withXPosition;
-    CGFloat viewWidth = _animationView2.superview.frame.size.width;
+    CGFloat viewWidth = _animationView.superview.frame.size.width;
     CGFloat xMidpoint = floorf(viewWidth / 2);
     CGFloat animationDistance = xMidpoint - abs(xMidpoint - xPosition);
     CGFloat animationFactor = animationDistance / xMidpoint;
     NSTimeInterval animationDuration = SLIDE_ANIMATION_TIME * animationFactor;
     
     CGRect newTextViewFrame = self.view.bounds;
-    newTextViewFrame.size = _animationView2.frame.size;
-    newTextViewFrame.origin = _animationView2.frame.origin;
+    newTextViewFrame.size = _animationView.frame.size;
+    newTextViewFrame.origin = _animationView.frame.origin;
     
     if (xPosition > xMidpoint) {
         newTextViewFrame.origin.x = viewWidth;
@@ -265,28 +270,24 @@
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDidStopSelector:@selector(removeAnimationChildren)];
     
-    _animationView2.frame = newTextViewFrame;
+    _animationView.frame = newTextViewFrame;
     
     [UIView commitAnimations];
+    
+    // preload for left to right pans (previous page) to reduce flicker
+    NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
+    [_animationView loadHTMLString:presentationNotes2 baseURL:nil];
 }
 
 - (void)removeAnimationChildren {
-    if (_animationView2) {
-        [_animationView2 removeFromSuperview];
-    }
-    if (_animationView1) {
-        [_animationView1 removeFromSuperview];
-    }
-    if (_defaultImage) {
-        [_defaultImage removeFromSuperview];
+    if (_animationView) {
+        [_animationView removeFromSuperview];
     }
 }
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSLog(@"%d, %@", navigationType, request);
     if (navigationType != UIWebViewNavigationTypeOther) {
-        self.navigatedToWeb = YES;
         //self.airPlayView.scalesPageToFit = YES;
         [self.airPlayView loadRequest:request];
         return NO;
