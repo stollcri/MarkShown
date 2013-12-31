@@ -138,6 +138,8 @@
     [self.webView loadHTMLString:presentationNotes baseURL:nil];
     
     NSString *presentationSlides = [NSString stringWithFormat:@"%@%@%@%@%@", @"<html><head><style type='text/css'>", self.markShowSlidesStyle, @"</style></head><body>", [self.markShowSlides objectAtIndex:page], @"</body></html>"];
+    
+    //self.airPlayView.scalesPageToFit = NO;
     [self.airPlayView loadHTMLString:presentationSlides baseURL:nil];
 }
 
@@ -149,14 +151,14 @@
     [self.externalScreen checkForExistingScreenAndInitializeIfPresent];
     
     self.airPlayView = [[UIWebView alloc] initWithFrame:self.externalScreen.secondWindow.bounds];
-    [self.externalScreen.secondWindow addSubview:self.airPlayView];
     self.airPlayView.scalesPageToFit = NO;
-    [self.airPlayView stringByEvaluatingJavaScriptFromString:@"document. body.style.zoom = 20.0;"];
+    [self.externalScreen.secondWindow addSubview:self.airPlayView];
 }
 
 - (void)freeExternalScreen {
     if (self.externalScreen.secondWindow) {
         self.externalScreen.secondWindow.hidden = YES;
+        [self.airPlayView removeFromSuperview];
         self.externalScreen.secondWindow = nil;
     }
 }
@@ -170,7 +172,7 @@
     }
     
     if (self.navigatedToWeb) {
-        [self didPan:gesture fromSide:PAN_FROM_LEFT usingDefaultImage:YES];
+        [self didPan:gesture fromSide:PAN_FROM_LEFT];
     }else{
         [self didPan:gesture fromSide:PAN_FROM_LEFT];
     }
@@ -184,54 +186,26 @@
     [self didPan:gesture fromSide:PAN_FROM_RIGHT];
 }
 
-- (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side {
-    [self didPan:gesture fromSide:side usingDefaultImage:NO];
-}
-
-- (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side usingDefaultImage:(BOOL)useImageView  {
+- (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side  {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         //[self removeAnimationChildren];
         
         if (side == PAN_FROM_LEFT) {
-            if (!useImageView) {
-                NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
-                [_animationView2 loadHTMLString:presentationNotes2 baseURL:nil];
-                
-                NSString *presentationNotes1 = [self.markShowPresenterNotes objectAtIndex:self.currentPage-1];
-                [_animationView1 loadHTMLString:presentationNotes1 baseURL:nil];
+            NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
+            [_animationView2 loadHTMLString:presentationNotes2 baseURL:nil];
             
-                _animationView2.userInteractionEnabled = YES;
-                _animationView2.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-                _animationView2.layer.shadowOpacity = 0.5;
-                [self.view addSubview:_animationView2];
-                
-                _animationView1.userInteractionEnabled = YES;
-                _animationView1.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-                _animationView1.layer.shadowOpacity = 0.5;
-                [self.view insertSubview:_animationView1 belowSubview:_animationView2];
+            NSString *presentationNotes1 = [self.markShowPresenterNotes objectAtIndex:self.currentPage-1];
+            [_animationView1 loadHTMLString:presentationNotes1 baseURL:nil];
+        
+            _animationView2.userInteractionEnabled = YES;
+            _animationView2.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
+            _animationView2.layer.shadowOpacity = 0.5;
+            [self.view addSubview:_animationView2];
             
-            // TODO: find a better way handle the image animation instances
-            }else{
-                NSString *presentationNotes1 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
-                [_animationView1 loadHTMLString:presentationNotes1 baseURL:nil];
-                
-                UIGraphicsBeginImageContext(self.webView.frame.size);
-                [self.webView.layer renderInContext:UIGraphicsGetCurrentContext()];
-                UIImage *grab = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                
-                self.defaultImage = [[UIImageView alloc] initWithImage:grab];
-                
-                _defaultImage.userInteractionEnabled = YES;
-                _defaultImage.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-                _defaultImage.layer.shadowOpacity = 0.5;
-                [self.view addSubview:_defaultImage];
-                
-                _animationView1.userInteractionEnabled = YES;
-                _animationView1.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
-                _animationView1.layer.shadowOpacity = 0.5;
-                [self.view insertSubview:_animationView1 belowSubview:_defaultImage];
-            }
+            _animationView1.userInteractionEnabled = YES;
+            _animationView1.layer.shadowOffset = CGSizeMake(-1.0, -1.0);
+            _animationView1.layer.shadowOpacity = 0.5;
+            [self.view insertSubview:_animationView1 belowSubview:_animationView2];
         }else{
             NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage+1];
             [_animationView2 loadHTMLString:presentationNotes2 baseURL:nil];
@@ -244,106 +218,56 @@
     }
     
     if (gesture.state == UIGestureRecognizerStateChanged) {
-        if (!useImageView) {
-            _animationView2.frame = CGRectMake([gesture locationInView:_animationView2.superview].x, _animationView2.frame.origin.y, _animationView2.frame.size.width, _animationView2.frame.size.height);
-        }else{
-            _defaultImage.frame = CGRectMake([gesture locationInView:_defaultImage.superview].x, _defaultImage.frame.origin.y, _defaultImage.frame.size.width, _defaultImage.frame.size.height);
-        }
+        _animationView2.frame = CGRectMake([gesture locationInView:_animationView2.superview].x, _animationView2.frame.origin.y, _animationView2.frame.size.width, _animationView2.frame.size.height);
     }
     
     if (gesture.state == UIGestureRecognizerStateEnded) {
-        if (!useImageView) {
-            CGFloat xPosition = [gesture locationInView:_animationView2.superview].x;
-            CGFloat viewWidth = _animationView2.superview.frame.size.width;
-            // TODO: make the pan stick at 40% or so instead of half way
-            CGFloat xMidpoint = floorf(viewWidth / 2);
-            
-            if (side == PAN_FROM_LEFT) {
-                if (xPosition > xMidpoint) {
-                    [self setPage:self.currentPage - 1];
-                }
-            } else {
-                if (xPosition < xMidpoint) {
-                    [self setPage:self.currentPage + 1];
-                }
-            }
-            
-            [self finishPanAnimation:[gesture locationInView:_animationView2.superview].x usingDefaultImage:NO];
+        CGFloat xPosition = [gesture locationInView:_animationView2.superview].x;
+        CGFloat viewWidth = _animationView2.superview.frame.size.width;
+        // TODO: make the pan stick at 40% or so instead of half way
+        CGFloat xMidpoint = floorf(viewWidth / 2);
         
-        // TODO: find a better way handle the image animation instances
-        }else{
-            CGFloat xPosition = [gesture locationInView:_defaultImage.superview].x;
-            CGFloat viewWidth = _defaultImage.superview.frame.size.width;
-            // TODO: make the pan stick at 40% or so instead of half way
-            CGFloat xMidpoint = floorf(viewWidth / 2);
-            
+        if (side == PAN_FROM_LEFT) {
             if (xPosition > xMidpoint) {
-                [self setPage:self.currentPage];
+                [self setPage:self.currentPage - 1];
             }
-            
-            [self finishPanAnimation:[gesture locationInView:_defaultImage.superview].x usingDefaultImage:YES];
+        } else {
+            if (xPosition < xMidpoint) {
+                [self setPage:self.currentPage + 1];
+            }
         }
+        
+        [self finishPanAnimation:[gesture locationInView:_animationView2.superview].x usingDefaultImage:NO];
     }
 }
 
 - (void)finishPanAnimation:(CGFloat)withXPosition usingDefaultImage:(BOOL)useImageView {
-    if (!useImageView) {
-        CGFloat xPosition = withXPosition;
-        CGFloat viewWidth = _animationView2.superview.frame.size.width;
-        CGFloat xMidpoint = floorf(viewWidth / 2);
-        CGFloat animationDistance = xMidpoint - abs(xMidpoint - xPosition);
-        CGFloat animationFactor = animationDistance / xMidpoint;
-        NSTimeInterval animationDuration = SLIDE_ANIMATION_TIME * animationFactor;
-        
-        CGRect newTextViewFrame = self.view.bounds;
-        newTextViewFrame.size = _animationView2.frame.size;
-        newTextViewFrame.origin = _animationView2.frame.origin;
-        
-        if (xPosition > xMidpoint) {
-            newTextViewFrame.origin.x = viewWidth;
-        }else{
-            newTextViewFrame.origin.x = 0;
-        }
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [UIView setAnimationDidStopSelector:@selector(removeAnimationChildren)];
-        
-        _animationView2.frame = newTextViewFrame;
-        
-        [UIView commitAnimations];
+    CGFloat xPosition = withXPosition;
+    CGFloat viewWidth = _animationView2.superview.frame.size.width;
+    CGFloat xMidpoint = floorf(viewWidth / 2);
+    CGFloat animationDistance = xMidpoint - abs(xMidpoint - xPosition);
+    CGFloat animationFactor = animationDistance / xMidpoint;
+    NSTimeInterval animationDuration = SLIDE_ANIMATION_TIME * animationFactor;
     
-    // TODO: find a better way handle the image animation instances
+    CGRect newTextViewFrame = self.view.bounds;
+    newTextViewFrame.size = _animationView2.frame.size;
+    newTextViewFrame.origin = _animationView2.frame.origin;
+    
+    if (xPosition > xMidpoint) {
+        newTextViewFrame.origin.x = viewWidth;
     }else{
-        CGFloat xPosition = withXPosition;
-        CGFloat viewWidth = _defaultImage.superview.frame.size.width;
-        CGFloat xMidpoint = floorf(viewWidth / 2);
-        CGFloat animationDistance = xMidpoint - abs(xMidpoint - xPosition);
-        CGFloat animationFactor = animationDistance / xMidpoint;
-        NSTimeInterval animationDuration = SLIDE_ANIMATION_TIME * animationFactor;
-        
-        CGRect newTextViewFrame = self.view.bounds;
-        newTextViewFrame.size = _defaultImage.frame.size;
-        newTextViewFrame.origin = _defaultImage.frame.origin;
-        
-        if (xPosition > xMidpoint) {
-            newTextViewFrame.origin.x = viewWidth;
-        }else{
-            newTextViewFrame.origin.x = 0;
-        }
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [UIView setAnimationDidStopSelector:@selector(removeAnimationChildren)];
-        
-        _defaultImage.frame = newTextViewFrame;
-        
-        [UIView commitAnimations];
+        newTextViewFrame.origin.x = 0;
     }
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDidStopSelector:@selector(removeAnimationChildren)];
+    
+    _animationView2.frame = newTextViewFrame;
+    
+    [UIView commitAnimations];
 }
 
 - (void)removeAnimationChildren {
@@ -363,6 +287,7 @@
     NSLog(@"%d, %@", navigationType, request);
     if (navigationType != UIWebViewNavigationTypeOther) {
         self.navigatedToWeb = YES;
+        //self.airPlayView.scalesPageToFit = YES;
         [self.airPlayView loadRequest:request];
         return NO;
     }
