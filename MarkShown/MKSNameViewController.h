@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MKSNameViewController : UIViewController
+@interface MKSNameViewController : UITableViewController
 
 @property (strong, nonatomic) id markShowItem;
 @property (weak, nonatomic) NSArray *markShowStyles;
 
-@property (strong, nonatomic) IBOutlet UIView *nameView;
-@property (weak, nonatomic) IBOutlet UIView *nameContainerView;
 @property (weak, nonatomic) IBOutlet UITextField *markShowName;
 
 - (IBAction)endMarkShowName:(id)sender;
