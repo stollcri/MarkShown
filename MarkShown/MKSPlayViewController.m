@@ -144,9 +144,8 @@
     NSString *presentationNotes = [self.markShowPresenterNotes objectAtIndex:page];
     [self.webView loadHTMLString:presentationNotes baseURL:nil];
     
-    NSString *presentationSlides = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", @"<html><head><meta name='viewport' content='width=device-width;initial-scale=", self.scaleFactor, @";maximum-scale=4.0;user-scalable=0;' /><style type='text/css'>", self.markShowSlidesStyle, @"</style></head><body>", [self.markShowSlides objectAtIndex:page], @"</body></html>"];
+    NSString *presentationSlides = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", @"<html><head><meta name='viewport' content='width=device-width,initial-scale=", self.scaleFactor, @",minimum-scale=0.2,maximum-scale=5.0;user-scalable=0;' /><style type='text/css'>", self.markShowSlidesStyle, @"</style></head><body>", [self.markShowSlides objectAtIndex:page], @"</body></html>"];
     
-    //self.airPlayView.scalesPageToFit = NO;
     [self.airPlayView loadHTMLString:presentationSlides baseURL:nil];
 }
 
@@ -155,7 +154,7 @@
 - (NSString*)setScaleFactor {
     CGRect frame = self.externalScreen.secondWindow.bounds;
     double diagonalLength = sqrt((frame.size.width * frame.size.width) + (frame.size.height * frame.size.height));
-    NSNumber *fontScale =  [NSNumber numberWithDouble:(diagonalLength / 800)];
+    NSNumber *fontScale =  [NSNumber numberWithDouble:(diagonalLength / 500)];
     
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -173,9 +172,13 @@
     
     self.airPlayView = [[UIWebView alloc] initWithFrame:self.externalScreen.secondWindow.bounds];
     self.airPlayView.scalesPageToFit = NO;
+    self.airPlayView.scrollView.minimumZoomScale = 0.1;
+    self.airPlayView.scrollView.maximumZoomScale = 4.0;
+    self.airPlayView.tag = 0;
     [self.externalScreen.secondWindow addSubview:self.airPlayView];
     
     self.scaleFactor = [self setScaleFactor];
+    self.airPlayView.delegate = self;
 }
 
 - (void)freeExternalScreen {
@@ -311,6 +314,7 @@
     // preload for left to right pans (previous page) to reduce flicker
     NSString *presentationNotes2 = [self.markShowPresenterNotes objectAtIndex:self.currentPage];
     [_animationView loadHTMLString:presentationNotes2 baseURL:nil];
+    self.airPlayView.tag = 0;
 }
 
 - (void)removeAnimationChildren {
@@ -322,11 +326,17 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType != UIWebViewNavigationTypeOther) {
-        //self.airPlayView.scalesPageToFit = YES;
         [self.airPlayView loadRequest:request];
+        self.airPlayView.tag = 1;
         return NO;
     }
     return YES;
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    if (webView.tag == 1) {
+        [self.airPlayView stringByEvaluatingJavaScriptFromString:@"document.body.style.zoom = 1.4;"];
+    }
 }
 
 - (IBAction)didPressRefresh:(id)sender {
