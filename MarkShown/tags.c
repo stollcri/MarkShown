@@ -25,10 +25,10 @@ mkd_define_tag(char *id, int selfclose)
     /* only add the new tag if it doesn't exist in
      * either the standard or extra tag tables.
      */
-    if ( !(p = mkd_search_tags(id, strlen(id))) ) {
+    if ( !(p = mkd_search_tags(id, (int)strlen(id))) ) {
 	p = &EXPAND(extratags);
 	p->id = id;
-	p->size = strlen(id);
+	p->size = (int)strlen(id);
 	p->selfclose = selfclose;
     }
 }

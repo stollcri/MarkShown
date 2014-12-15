@@ -334,7 +334,7 @@ linkytitle(MMIOT *f, char quote, Footnote *ref)
 	if ( c == quote ) {
 	    if ( (c = eatspace(f)) == ')' ) {
 		T(ref->title) = 1+title;
-		S(ref->title) = (e-title)-2;
+		S(ref->title) = (int)(e-title)-2;
 		return 1;
 	    }
 	}
@@ -572,7 +572,7 @@ printlinkyref(MMIOT *f, linkytype *tag, char *link, int size)
 	
     if ( tag->kind & IS_URL ) {
 	if ( f->cb && f->cb->e_url && (edit = (*f->cb->e_url)(link, size, f->cb->e_data)) ) {
-	    puturl(edit, strlen(edit), f, 0);
+	    puturl(edit, (int)strlen(edit), f, 0);
 	    if ( f->cb->e_free ) (*f->cb->e_free)(edit, f->cb->e_data);
 	}
 	else
@@ -1091,7 +1091,7 @@ islike(MMIOT *f, char *s)
        ++s;
     }
 
-    if ( !(len = strlen(s)) )
+    if ( !(len = (int)strlen(s)) )
 	return 0;
 
     if ( s[len-1] == '|' ) {

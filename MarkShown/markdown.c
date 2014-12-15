@@ -247,7 +247,7 @@ commentblock(Paragraph *p, int *unclosed)
 
     for ( t = p->text; t ; t = t->next) {
 	if ( end = strstr(T(t->text), "-->") ) {
-	    splitline(t, 3 + (end - T(t->text)) );
+	    splitline(t, 3 + (int)(end - T(t->text)) );
 	    ret = t->next;
 	    t->next = 0;
 	    return ret;

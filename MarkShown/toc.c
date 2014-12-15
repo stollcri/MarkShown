@@ -106,7 +106,7 @@ mkd_generatetoc(Document *p, FILE *out)
     int ret = EOF;
 
     if ( sz > 0 )
-	ret = fwrite(buf, 1, sz, out);
+	ret = (int)fwrite(buf, 1, sz, out);
 
     if ( buf ) free(buf);
 

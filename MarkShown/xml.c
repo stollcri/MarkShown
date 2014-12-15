@@ -70,7 +70,7 @@ mkd_xml(char *p, int size, char **res)
     while ( size-- > 0 ) {
 	c = *p++;
 	if ( entity = mkd_xmlchar(c) )
-	    Cswrite(&f, entity, strlen(entity));
+	    Cswrite(&f, entity, (int)strlen(entity));
 	else
 	    Csputc(c, &f);
     }

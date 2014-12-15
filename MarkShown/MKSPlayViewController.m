@@ -186,7 +186,7 @@
     if (page < 0 || page >= self.markShowSlides.count) {
         return;
     }
-    self.currentPage = page;
+    self.currentPage = (int)page;
     
     NSString *presentationNotes = [self.markShowPresenterNotes objectAtIndex:page];
     [self.webView loadHTMLString:presentationNotes baseURL:nil];
