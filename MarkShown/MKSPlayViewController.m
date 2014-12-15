@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSArray *markShowPresenterNotes;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panLeft;
 @property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *panRight;
+@property (strong, nonatomic) UISwipeGestureRecognizer *swipeLeft;
+@property (strong, nonatomic) UISwipeGestureRecognizer *swipeRight;
 @property (strong, nonatomic) UIWebView *animationView;
 @property (strong, nonatomic) UIWebView *airPlayView;
 @property (strong, nonatomic) CASExternalScreen *externalScreen;
@@ -123,6 +125,14 @@
     self.panRight = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanFromRight:)];
     self.panRight.edges = UIRectEdgeRight;
     [self.webView addGestureRecognizer:self.panRight];
+    
+    self.swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeLeft:)];
+    self.swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.webView addGestureRecognizer:self.swipeLeft];
+    
+    self.swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeRight:)];
+    self.swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.webView addGestureRecognizer:self.swipeRight];
 }
 
 - (void)setPage:(NSInteger)page {
@@ -176,23 +186,41 @@
     }
 }
 
+#pragma mark - Swipping Gestures
+
+- (void)didSwipeLeft:(UIScreenEdgePanGestureRecognizer*)gesture
+{
+    if ((self.currentPage + 1) >= self.markShowSlides.count) {
+        return;
+    }
+    [self didPan:gesture fromSide:PAN_FROM_RIGHT withSwipe:YES];
+}
+
+- (void)didSwipeRight:(UIScreenEdgePanGestureRecognizer*)gesture
+{
+    if (self.currentPage <= 0) {
+        return;
+    }
+    [self didPan:gesture fromSide:PAN_FROM_LEFT withSwipe:YES];
+}
+
 #pragma mark - Panning Gestures
 
 - (void)didPanFromLeft:(UIScreenEdgePanGestureRecognizer*)gesture {
     if (self.currentPage <= 0) {
         return;
     }
-    [self didPan:gesture fromSide:PAN_FROM_LEFT];
+    [self didPan:gesture fromSide:PAN_FROM_LEFT withSwipe:NO];
 }
 
 - (void)didPanFromRight:(UIScreenEdgePanGestureRecognizer*)gesture {
     if ((self.currentPage + 1) >= self.markShowSlides.count) {
         return;
     }
-    [self didPan:gesture fromSide:PAN_FROM_RIGHT];
+    [self didPan:gesture fromSide:PAN_FROM_RIGHT withSwipe:NO];
 }
 
-- (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side  {
+- (void)didPan:(UIScreenEdgePanGestureRecognizer*)gesture fromSide:(NSInteger)side withSwipe:(BOOL)swiped {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         CGRect onScreen = CGRectMake(self.webView.bounds.origin.x, self.webView.bounds.origin.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
         CGRect offScreen = CGRectMake(self.webView.bounds.size.width, self.webView.bounds.origin.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
@@ -228,21 +256,27 @@
         // TODO: make the pan stick at 40% or so instead of half way
         CGFloat xMidpoint = floorf(viewWidth / 2);
         
-        if (side == PAN_FROM_LEFT) {
-            if (xPosition > xMidpoint) {
+        if (swiped) {
+            if (side == PAN_FROM_RIGHT) {
+                [self setPage:self.currentPage + 1];
+            } else {
                 [self setPage:self.currentPage - 1];
-            }else{
-                [self setPage:self.currentPage];
             }
         } else {
-            if (xPosition < xMidpoint) {
-                [self setPage:self.currentPage + 1];
+            if (side == PAN_FROM_RIGHT) {
+                if (xPosition < xMidpoint) {
+                    [self setPage:self.currentPage + 1];
+                }
+            } else {
+                if (xPosition > xMidpoint) {
+                    [self setPage:self.currentPage - 1];
+                }else{
+                    [self setPage:self.currentPage];
+                }
             }
         }
         
         [self finishPanAnimation:[gesture locationInView:_animationView.superview].x usingDefaultImage:NO];
-        
-        
     }
 }
 
