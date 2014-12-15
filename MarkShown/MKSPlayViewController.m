@@ -387,7 +387,9 @@
 }
 
 - (IBAction)didPressRefresh:(id)sender {
+    [self.airPlayView stringByEvaluatingJavaScriptFromString:@"document.body.style.zoom = 1.0;"];
     [self setPage:self.currentPage];
+    self.airPlayView.tag = 0;
 }
 
 @end
