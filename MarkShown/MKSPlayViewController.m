@@ -16,6 +16,7 @@
 #define SLIDE_ANIMATION_TIME 0.25
 #define PAN_FROM_LEFT 0
 #define PAN_FROM_RIGHT 1
+#define SCROLL_FACTOR 16
 
 @interface MKSPlayViewController ()
 
@@ -30,6 +31,12 @@
 @property (strong, nonatomic) UIWebView *airPlayView;
 @property (strong, nonatomic) CASExternalScreen *externalScreen;
 @property (strong, nonatomic) NSString *scaleFactor;
+
+@property CGPoint scrollBegin;
+@property CGPoint scrollEnd;
+@property BOOL scrolling;
+@property BOOL scrollDirectionKnown;
+@property BOOL scrollDown;
 
 @property (strong, nonatomic) NSDictionary *markShowSlideStyle;
 @property (strong, nonatomic) NSDictionary *markShowNoteStyle;
@@ -49,6 +56,7 @@
     [self prepareAnimationViews];
     [self setPageControls];
     [self setPage:0];
+    self.webView.scrollView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -72,6 +80,45 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     //
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (self.airPlayView.tag == 1) {
+        self.scrolling = YES;
+        self.scrollDirectionKnown = NO;
+    }
+}
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (self.airPlayView.tag == 1) {
+        self.scrolling = NO;
+    }
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.airPlayView.tag == 1) {
+        if (!self.scrollDirectionKnown) {
+            if (scrollView.contentOffset.y < 0) {
+                self.scrollDown = YES;
+            } else if (scrollView.contentOffset.y > 0) {
+                self.scrollDown = NO;
+            }
+            self.scrollDirectionKnown = YES;
+        }
+        
+        if (self.scrolling) {
+            CGPoint newOffset = self.airPlayView.scrollView.contentOffset;
+            if (self.scrollDown) {
+                if (self.airPlayView.scrollView.contentOffset.y >= SCROLL_FACTOR) {
+                    newOffset.y -= SCROLL_FACTOR;
+                    [self.airPlayView.scrollView setContentOffset:newOffset];
+                }
+            } else {
+                newOffset.y += SCROLL_FACTOR;
+                [self.airPlayView.scrollView setContentOffset:newOffset];
+            }
+        }
+    }
 }
 
 #pragma mark - Markshown Methods

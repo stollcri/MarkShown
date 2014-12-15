@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MKSPlayViewController : UIViewController <UIGestureRecognizerDelegate, UIWebViewDelegate>
+@interface MKSPlayViewController : UIViewController <UIGestureRecognizerDelegate, UIWebViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSString *markShowSlidesText;
 @property (strong, nonatomic) NSString *markShowSlidesStyle;
